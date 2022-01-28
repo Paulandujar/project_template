@@ -63,7 +63,7 @@ dev.off()
 
 
 #### ROBUSTEZ
-
+############### FUNCIONES ###############
 robustness.random2 <- function(grafo, measure=degree){
   q = seq(from=0.01,to=1,by=0.01)
   g = grafo
@@ -85,5 +85,99 @@ robustness.random2 <- function(grafo, measure=degree){
   id <- order(x)
   return(sum(diff(x[id])*rollmean(y[id],2)))
 } 
+heter <- function(network) {
+  require(igraph)
+  return(var(degree(network))/mean(degree(network))
+  )
+}
+
+sequential.attacks.targeted <- function(grafo, measure=degree){
+  q = seq(from=0,to=1,by=0.01)
+  g = grafo
+  S = max(components(grafo)$csize)/vcount(grafo)
+  contador = S
+  removalset = NULL
+  v = vcount(grafo)
+  s = max(components(grafo)$csize)
+  for(i in q){
+    if(max(components(g)$csize)/vcount(grafo) >0.05){
+      removalset <- names(sort(degree(g),decreasing = T)[1:(i*vcount(g))])
+      g <- delete.vertices(graph = g, v = removalset)
+      S = c(S, max(components(g)$csize)/vcount(grafo))
+      v <- c(v, vcount(g))
+      s = c(s, max(components(g)$csize))
+      contador = max(components(g)$csize)/vcount(grafo)
+    }
+    
+  }
+  S.vs.q <- tbl_df(data.frame(cbind(q[1:length(S)],S,s,v)))
+  names(S.vs.q) <- c("q", "S", "s", "v")
+  return(S.vs.q)
+}
+
+
+sequential.attacks.random <- function(grafo, measure=degree){
+  q = seq(from=0,to=1,by=0.01)
+  g = grafo
+  S = max(components(grafo)$csize)/vcount(grafo)
+  contador = S
+  removalset = NULL
+  v = vcount(grafo)
+  s = max(components(grafo)$csize)
+  for(i in q){
+    if(contador > 0.05 & length(removalset) < vcount(g)/2){
+      removalset <- sample(x = V(g)$name, size = 10, replace = F)
+      g <- delete.vertices(graph = g, v = removalset)
+      S = c(S, max(components(g)$csize)/vcount(grafo))
+      v <- c(v, vcount(g))
+      s = c(s, max(components(g)$csize))
+      contador = max(components(g)$csize)/vcount(grafo)
+    }
+    
+  }
+  S.vs.q <- tbl_df(data.frame(cbind(q[1:length(S)],S,s,v)))
+  names(S.vs.q) <- c("q", "S", "s", "v")
+  return(S.vs.q)
+}
+
+
+
+robustness.targeted2 <- function(grafo, measure=degree){
+  q = seq(from=0.01,to=1,by=0.01)
+  g = grafo
+  S = max(components(grafo)$csize)/vcount(grafo)
+  contador = S
+  removalset = NULL
+  for(i in q){
+    if(max(components(g)$csize)/vcount(grafo) >0.05){
+      removalset <- names(sort(degree(g),decreasing = T)[1:(i*vcount(g))])
+      g <- delete.vertices(graph = g, v = removalset)
+      S = c(S, max(components(g)$csize)/vcount(grafo))
+      contador = max(components(g)$csize)/vcount(grafo)
+    }
+  }
+  x <- as.numeric(q[1:length(S)])
+  y <- as.numeric(S)
+  id <- order(x)
+  return(sum(diff(x[id])*rollmean(y[id],2)))
+} 
+
+# plot the graph
+plot_graph <- function(graph){
+  V(graph)$label <- NA
+  V(graph)$name <- NA
+  V(graph)$size <- degree(graph)/5
+  E(graph)$edge.color <- "gray80"
+  V(graph)$color <- "tomato"
+  # graph_attr(graph, "layout") <- layout_with_lgl
+  graph_attr(graph, "layout") <- layout.kamada.kawai
+  plot(graph)
+  
+}
+
+
+
+
+
 
 robustness.random2(covid_network)
