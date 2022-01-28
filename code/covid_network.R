@@ -62,21 +62,22 @@ for(i in seq(1:4)){
 dev.off()
 
 
+
 #### ROBUSTEZ
 ############### FUNCIONES ###############
 robustness.random2 <- function(grafo, measure=degree){
-  q = seq(from=0.01,to=1,by=0.01)
-  g = grafo
-  S = max(components(grafo)$csize)/vcount(grafo)
-  contador = S
-  removalset = NULL
+  q <- seq(from=0.01,to=1,by=0.01)
+  g <- grafo
+  S <- max(components(grafo)$csize)/vcount(grafo)
+  contador <- S
+  removalset <- NULL
   for(i in q){
     if(contador > 0.05 & length(removalset) < vcount(g)/2){
       removalset <- sample(x = V(g)$name, size = 10, replace = F)
       g <- delete.vertices(graph = g, v = removalset)
-      S = c(S, max(components(g)$csize)/vcount(grafo))
+      S <- c(S, max(components(g)$csize)/vcount(grafo))
       
-      contador = max(components(g)$csize)/vcount(grafo)
+      contador <- max(components(g)$csize)/vcount(grafo)
     }
   }
   x <- as.numeric(q[1:length(S)])
@@ -92,20 +93,20 @@ heter <- function(network) {
 }
 
 sequential.attacks.targeted <- function(grafo, measure=degree){
-  q = seq(from=0,to=1,by=0.01)
-  g = grafo
-  S = max(components(grafo)$csize)/vcount(grafo)
-  contador = S
-  removalset = NULL
-  v = vcount(grafo)
-  s = max(components(grafo)$csize)
+  q <- seq(from=0,to=1,by=0.01)
+  g <- grafo
+  S <- max(components(grafo)$csize)/vcount(grafo)
+  contador <- S
+  removalset <- NULL
+  v <- vcount(grafo)
+  s <- max(components(grafo)$csize)
   for(i in q){
     if(max(components(g)$csize)/vcount(grafo) >0.05){
       removalset <- names(sort(degree(g),decreasing = T)[1:(i*vcount(g))])
       g <- delete.vertices(graph = g, v = removalset)
-      S = c(S, max(components(g)$csize)/vcount(grafo))
+      S <- c(S, max(components(g)$csize)/vcount(grafo))
       v <- c(v, vcount(g))
-      s = c(s, max(components(g)$csize))
+      s <- c(s, max(components(g)$csize))
       contador = max(components(g)$csize)/vcount(grafo)
     }
     
@@ -117,21 +118,21 @@ sequential.attacks.targeted <- function(grafo, measure=degree){
 
 
 sequential.attacks.random <- function(grafo, measure=degree){
-  q = seq(from=0,to=1,by=0.01)
-  g = grafo
-  S = max(components(grafo)$csize)/vcount(grafo)
-  contador = S
-  removalset = NULL
-  v = vcount(grafo)
-  s = max(components(grafo)$csize)
+  q <- seq(from=0,to=1,by=0.01)
+  g <- grafo
+  S <- max(components(grafo)$csize)/vcount(grafo)
+  contador <- S
+  removalset <- NULL
+  v <- vcount(grafo)
+  s <- max(components(grafo)$csize)
   for(i in q){
     if(contador > 0.05 & length(removalset) < vcount(g)/2){
       removalset <- sample(x = V(g)$name, size = 10, replace = F)
       g <- delete.vertices(graph = g, v = removalset)
-      S = c(S, max(components(g)$csize)/vcount(grafo))
+      S <- c(S, max(components(g)$csize)/vcount(grafo))
       v <- c(v, vcount(g))
-      s = c(s, max(components(g)$csize))
-      contador = max(components(g)$csize)/vcount(grafo)
+      s <- c(s, max(components(g)$csize))
+      contador <- max(components(g)$csize)/vcount(grafo)
     }
     
   }
@@ -143,16 +144,16 @@ sequential.attacks.random <- function(grafo, measure=degree){
 
 
 robustness.targeted2 <- function(grafo, measure=degree){
-  q = seq(from=0.01,to=1,by=0.01)
-  g = grafo
-  S = max(components(grafo)$csize)/vcount(grafo)
-  contador = S
-  removalset = NULL
+  q <- seq(from=0.01,to=1,by=0.01)
+  g <- grafo
+  S <- max(components(grafo)$csize)/vcount(grafo)
+  contador <- S
+  removalset <- NULL
   for(i in q){
     if(max(components(g)$csize)/vcount(grafo) >0.05){
       removalset <- names(sort(degree(g),decreasing = T)[1:(i*vcount(g))])
       g <- delete.vertices(graph = g, v = removalset)
-      S = c(S, max(components(g)$csize)/vcount(grafo))
+      S <- c(S, max(components(g)$csize)/vcount(grafo))
       contador = max(components(g)$csize)/vcount(grafo)
     }
   }
@@ -175,9 +176,22 @@ plot_graph <- function(graph){
   
 }
 
+png(file="covid_network_graph.png")
+plot_graph(covid_network)
+dev.off()
+
+# Calculo de la robustez de nuestra red
+cat("La robustez de la red de proteinas covid frente a ataques aleatorios es: ", robustness.random2(covid_network))
+cat("La robustez de la red de proteinas covid frente a ataques dirigidos es: ",robustness.targeted2(covid_network))
 
 
+# Ataques dirigidos
+covid_AttackTargeted <- sequential.attacks.targeted(covid_network)
+covid_AttackTargeted$attack <- rep("targeted")
 
+# Ataques aleatorios
 
+covid_AttackRandom <- sequential.attacks.random(covid_network)
+covid_AttackRandom$attack <- rep("random")
 
-robustness.random2(covid_network)
+attack <- rbind(covid_AttackTargeted,covid_AttackRandom)
