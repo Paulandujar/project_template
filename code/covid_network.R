@@ -3,6 +3,7 @@ library(dplyr)
 library(ggplot2)
 library(zoo)
 library(STRINGdb)
+library(linkcomm)
 
 # Cargamos el archivo de datos
 data <- read.csv("code/data/uniprot1.csv", header=T, sep=";")
@@ -47,6 +48,21 @@ plot(covid_network,
      vertex.label.cex = 0.5,
      layout = layout.kamada.kawai
 )
+dev.off()
+
+# Se guarda la información en un conjunto de datos para usar linkcomm
+covid_df = igraph::as_data_frame(covid_network, what="edges") 
+par(mar=c(1,1,1,1))
+covid_lc <- getLinkCommunities(covid_df, hcmethod = "single")
+par(mar=c(1,1,1,1))
+print(covid_lc)
+
+png("results/covid_lc_summary.png")
+plot(covid_lc, type = "summary")
+dev.off()
+
+png("results/covid_lc_dend.png")
+plot(covid_lc, type = "dend")
 dev.off()
 
 
