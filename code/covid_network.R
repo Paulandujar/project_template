@@ -30,18 +30,18 @@ dev.off()
 
 # Primera capa de la red
 primer.vecino <- (neighbors(graph = string_network, v = V(covid_network)$name, mode = "all"))$name
-hits.network <- string_db$get_subnetwork(unique(c(V(hits.network)$name, primer.vecino)))
-cl <- components(hits.network)
+covid_network <- string_db$get_subnetwork(unique(c(V(covid_network)$name, primer.vecino)))
+cl <- components(covid_network)
 borra.nodos <- names(cl$membership[cl$membership!=1]) 
-hits.network <- delete_vertices(hits.network, borra.nodos)
-names <- gsub("9606.ENSP00000", "", V(hits.network)$name)
-V(hits.network)$name <- names
+covid_network <- delete_vertices(covid_network, borra.nodos)
+names <- gsub("9606.ENSP00000", "", V(covid_network)$name)
+V(covid_network)$name <- names
 
 # Graficamos la red
-png("results/hits.network.png")
-plot(hits.network,
+png("results/covid_network.png")
+plot(covid_network,
      vertex.color = "pink",
-     vertex.size = degree(hits.network)/10,
+     vertex.size = degree(covid_network)/10,
      vertex.label.color = "black",
      vertex.label.family = "Helvetica",
      vertex.label.cex = 0.5,
