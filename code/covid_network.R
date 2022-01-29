@@ -29,7 +29,7 @@ string_db$plot_network(hits)
 dev.off()
 
 # Primera capa de la red
-primer.vecino <- (neighbors(graph = string.network, v = V(hits.network)$name, mode = "all"))$name
+primer.vecino <- (neighbors(graph = string_network, v = V(covid_network)$name, mode = "all"))$name
 hits.network <- string_db$get_subnetwork(unique(c(V(hits.network)$name, primer.vecino)))
 cl <- components(hits.network)
 borra.nodos <- names(cl$membership[cl$membership!=1]) 
