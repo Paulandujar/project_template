@@ -79,13 +79,13 @@ dev.off()
 
 #### ENRIQUECIMIENTO FUNCIONAL
 enriquecimientoFuncional <- function(cluster) {
-  # Observamos la representaciÛn de los genes del cluster
+  # Observamos la representación de los genes del cluster
   png(paste("cluster_", cluster, ".png", sep = ""))
   plot(hits_lc, type = "graph", clusterids = cluster)
   dev.off()
   
   nombres <- getNodesIn(hits_lc, clusterids = cluster, type = "names")
-  datos <- example1_mapped[example1_mapped$STRING_id %in% nombres, ] ## he hecho un ejemplo y sale vacio, mirar cuando estén los cluster
+  datos <- data_mapped[data_mapped$STRING_id %in% nombres, ] ## he hecho un ejemplo y sale vacio, mirar cuando estén los cluster
   
   # Enriquecimiento con GO
   enriGo <- string_db$get_enrichment(datos$STRING_id, category = "Process", methodMT = "fdr", iea = TRUE)
@@ -97,7 +97,7 @@ enriquecimientoFuncional <- function(cluster) {
   print(enriKEGG)
   write.csv(enriKEGG[, -c(1,7,8,9)], paste("funcionesbiologicas_KEGG_cluster", cluster, ".csv", sep = ""))
 }
-
+# faltan las funciones con los números de clusters que han salido en clustering
 #### ROBUSTEZ
 ############### FUNCIONES ###############
 robustness.random2 <- function(grafo, measure=degree){
