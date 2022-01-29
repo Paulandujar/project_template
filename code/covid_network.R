@@ -3,6 +3,7 @@ library(dplyr)
 library(ggplot2)
 library(zoo)
 library(STRINGdb)
+library(linkcomm)
 
 # Cargamos el archivo de datos
 data <- read.csv("code/data/uniprot1.csv", header=T, sep=";")
@@ -24,24 +25,24 @@ covid_network <- string_db$get_subnetwork(data_mapped_string_ids)
 
 # Guardamos los hits de string
 hits <-data_mapped$STRING_id
-png("results/01_string_hits.png")
+png("results/string_hits.png")
 string_db$plot_network(hits)
 dev.off()
 
 # Primera capa de la red
-primer.vecino <- (neighbors(graph = string.network, v = V(hits.network)$name, mode = "all"))$name
-hits.network <- string_db$get_subnetwork(unique(c(V(hits.network)$name, primer.vecino)))
-cl <- components(hits.network)
+primer.vecino <- (neighbors(graph = string_network, v = V(covid_network)$name, mode = "all"))$name
+covid_network <- string_db$get_subnetwork(unique(c(V(covid_network)$name, primer.vecino)))
+cl <- components(covid_network)
 borra.nodos <- names(cl$membership[cl$membership!=1]) 
-hits.network <- delete_vertices(hits.network, borra.nodos)
-names <- gsub("9606.ENSP00000", "", V(hits.network)$name)
-V(hits.network)$name <- names
+covid_network <- delete_vertices(covid_network, borra.nodos)
+names <- gsub("9606.ENSP00000", "", V(covid_network)$name)
+V(covid_network)$name <- names
 
 # Graficamos la red
-png("results/02_hits.network.png")
-plot(hits.network,
+png("results/covid_network.png")
+plot(covid_network,
      vertex.color = "pink",
-     vertex.size = degree(hits.network)/10,
+     vertex.size = degree(covid_network)/10,
      vertex.label.color = "black",
      vertex.label.family = "Helvetica",
      vertex.label.cex = 0.5,
@@ -49,12 +50,27 @@ plot(hits.network,
 )
 dev.off()
 
+# Se guarda la información en un conjunto de datos para usar linkcomm
+covid_df = igraph::as_data_frame(covid_network, what="edges") 
+par(mar=c(1,1,1,1))
+covid_lc <- getLinkCommunities(covid_df, hcmethod = "single")
+par(mar=c(1,1,1,1))
+print(covid_lc)
+
+png("results/covid_lc_summary.png")
+plot(covid_lc, type = "summary")
+dev.off()
+
+png("results/covid_lc_dend.png")
+plot(covid_lc, type = "dend")
+dev.off()
+
 
 #### CLUSTERING
 
 # Graficamos los clusters utilizando el paquete STRINGdb
 clustersList <- string_db$get_clusters(data_mapped$STRING_id)
-png("results/03_top4_clusters.png")
+png("results/top4_clusters.png")
 par(mfrow=c(2,2))
 for(i in seq(1:4)){
   string_db$plot_network(clustersList[[i]])
@@ -65,18 +81,18 @@ dev.off()
 #### ROBUSTEZ
 ############### FUNCIONES ###############
 robustness.random2 <- function(grafo, measure=degree){
-  q = seq(from=0.01,to=1,by=0.01)
-  g = grafo
-  S = max(components(grafo)$csize)/vcount(grafo)
-  contador = S
-  removalset = NULL
+  q <- seq(from=0.01,to=1,by=0.01)
+  g <- grafo
+  S <- max(components(grafo)$csize)/vcount(grafo)
+  contador <- S
+  removalset <- NULL
   for(i in q){
     if(contador > 0.05 & length(removalset) < vcount(g)/2){
       removalset <- sample(x = V(g)$name, size = 10, replace = F)
       g <- delete.vertices(graph = g, v = removalset)
-      S = c(S, max(components(g)$csize)/vcount(grafo))
+      S <- c(S, max(components(g)$csize)/vcount(grafo))
       
-      contador = max(components(g)$csize)/vcount(grafo)
+      contador <- max(components(g)$csize)/vcount(grafo)
     }
   }
   x <- as.numeric(q[1:length(S)])
@@ -92,20 +108,20 @@ heter <- function(network) {
 }
 
 sequential.attacks.targeted <- function(grafo, measure=degree){
-  q = seq(from=0,to=1,by=0.01)
-  g = grafo
-  S = max(components(grafo)$csize)/vcount(grafo)
-  contador = S
-  removalset = NULL
-  v = vcount(grafo)
-  s = max(components(grafo)$csize)
+  q <- seq(from=0,to=1,by=0.01)
+  g <- grafo
+  S <- max(components(grafo)$csize)/vcount(grafo)
+  contador <- S
+  removalset <- NULL
+  v <- vcount(grafo)
+  s <- max(components(grafo)$csize)
   for(i in q){
     if(max(components(g)$csize)/vcount(grafo) >0.05){
       removalset <- names(sort(degree(g),decreasing = T)[1:(i*vcount(g))])
       g <- delete.vertices(graph = g, v = removalset)
-      S = c(S, max(components(g)$csize)/vcount(grafo))
+      S <- c(S, max(components(g)$csize)/vcount(grafo))
       v <- c(v, vcount(g))
-      s = c(s, max(components(g)$csize))
+      s <- c(s, max(components(g)$csize))
       contador = max(components(g)$csize)/vcount(grafo)
     }
     
@@ -117,21 +133,21 @@ sequential.attacks.targeted <- function(grafo, measure=degree){
 
 
 sequential.attacks.random <- function(grafo, measure=degree){
-  q = seq(from=0,to=1,by=0.01)
-  g = grafo
-  S = max(components(grafo)$csize)/vcount(grafo)
-  contador = S
-  removalset = NULL
-  v = vcount(grafo)
-  s = max(components(grafo)$csize)
+  q <- seq(from=0,to=1,by=0.01)
+  g <- grafo
+  S <- max(components(grafo)$csize)/vcount(grafo)
+  contador <- S
+  removalset <- NULL
+  v <- vcount(grafo)
+  s <- max(components(grafo)$csize)
   for(i in q){
     if(contador > 0.05 & length(removalset) < vcount(g)/2){
       removalset <- sample(x = V(g)$name, size = 10, replace = F)
       g <- delete.vertices(graph = g, v = removalset)
-      S = c(S, max(components(g)$csize)/vcount(grafo))
+      S <- c(S, max(components(g)$csize)/vcount(grafo))
       v <- c(v, vcount(g))
-      s = c(s, max(components(g)$csize))
-      contador = max(components(g)$csize)/vcount(grafo)
+      s <- c(s, max(components(g)$csize))
+      contador <- max(components(g)$csize)/vcount(grafo)
     }
     
   }
@@ -143,16 +159,16 @@ sequential.attacks.random <- function(grafo, measure=degree){
 
 
 robustness.targeted2 <- function(grafo, measure=degree){
-  q = seq(from=0.01,to=1,by=0.01)
-  g = grafo
-  S = max(components(grafo)$csize)/vcount(grafo)
-  contador = S
-  removalset = NULL
+  q <- seq(from=0.01,to=1,by=0.01)
+  g <- grafo
+  S <- max(components(grafo)$csize)/vcount(grafo)
+  contador <- S
+  removalset <- NULL
   for(i in q){
     if(max(components(g)$csize)/vcount(grafo) >0.05){
       removalset <- names(sort(degree(g),decreasing = T)[1:(i*vcount(g))])
       g <- delete.vertices(graph = g, v = removalset)
-      S = c(S, max(components(g)$csize)/vcount(grafo))
+      S <- c(S, max(components(g)$csize)/vcount(grafo))
       contador = max(components(g)$csize)/vcount(grafo)
     }
   }
@@ -175,9 +191,25 @@ plot_graph <- function(graph){
   
 }
 
+png(file="results/covid_network_graph.png")
+plot_graph(covid_network)
+dev.off()
+
+# Calculo de la robustez de nuestra red
+robusezRamdom <- robustness.random2(covid_network)
+robustezDirigida <- robustness.targeted2(covid_network)
+robustez_ambas <- rbind(robusezRamdom,robustezDirigida)
+write.csv(robustez_ambas, file="results/RobustezRedCovid.csv")
 
 
+# Ataques dirigidos
+covid_AttackTargeted <- sequential.attacks.targeted(covid_network)
+covid_AttackTargeted$attack <- rep("targeted")
 
+# Ataques aleatorios
 
+covid_AttackRandom <- sequential.attacks.random(covid_network)
+covid_AttackRandom$attack <- rep("random")
 
-robustness.random2(covid_network)
+attack <- rbind(covid_AttackTargeted,covid_AttackRandom)
+write.csv(attack, file="results/AtaquesRedCovid.csv")
