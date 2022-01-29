@@ -24,7 +24,7 @@ covid_network <- string_db$get_subnetwork(data_mapped_string_ids)
 
 # Guardamos los hits de string
 hits <-data_mapped$STRING_id
-png("results/01_string_hits.png")
+png("results/string_hits.png")
 string_db$plot_network(hits)
 dev.off()
 
@@ -38,7 +38,7 @@ names <- gsub("9606.ENSP00000", "", V(hits.network)$name)
 V(hits.network)$name <- names
 
 # Graficamos la red
-png("results/02_hits.network.png")
+png("results/hits.network.png")
 plot(hits.network,
      vertex.color = "pink",
      vertex.size = degree(hits.network)/10,
@@ -54,13 +54,12 @@ dev.off()
 
 # Graficamos los clusters utilizando el paquete STRINGdb
 clustersList <- string_db$get_clusters(data_mapped$STRING_id)
-png("results/03_top4_clusters.png")
+png("results/top4_clusters.png")
 par(mfrow=c(2,2))
 for(i in seq(1:4)){
   string_db$plot_network(clustersList[[i]])
 }
 dev.off()
-
 
 
 #### ROBUSTEZ
@@ -176,13 +175,15 @@ plot_graph <- function(graph){
   
 }
 
-png(file="covid_network_graph.png")
+png(file="results/covid_network_graph.png")
 plot_graph(covid_network)
 dev.off()
 
 # Calculo de la robustez de nuestra red
-cat("La robustez de la red de proteinas covid frente a ataques aleatorios es: ", robustness.random2(covid_network))
-cat("La robustez de la red de proteinas covid frente a ataques dirigidos es: ",robustness.targeted2(covid_network))
+robusezRamdom <- robustness.random2(covid_network)
+robustezDirigida <- robustness.targeted2(covid_network)
+robustez_ambas <- rbind(robusezRamdom,robustezDirigida)
+write.csv(robustez_ambas, file="results/RobustezRedCovid.csv")
 
 
 # Ataques dirigidos
@@ -195,3 +196,4 @@ covid_AttackRandom <- sequential.attacks.random(covid_network)
 covid_AttackRandom$attack <- rep("random")
 
 attack <- rbind(covid_AttackTargeted,covid_AttackRandom)
+write.csv(attack, file="results/AtaquesRedCovid.csv")
