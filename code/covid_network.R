@@ -31,18 +31,18 @@ dev.off()
 
 # Primera capa de la red
 primer.vecino <- (neighbors(graph = string_network, v = V(covid_network)$name, mode = "all"))$name
-covid_network <- string_db$get_subnetwork(unique(c(V(covid_network)$name, primer.vecino)))
-cl <- components(covid_network)
+hits.network <- string_db$get_subnetwork(unique(c(V(covid_network)$name, primer.vecino)))
+cl <- components(hits.network)
 borra.nodos <- names(cl$membership[cl$membership!=1]) 
-covid_network <- delete_vertices(covid_network, borra.nodos)
-names <- gsub("9606.ENSP00000", "", V(covid_network)$name)
-V(covid_network)$name <- names
+hits.network <- delete_vertices(hits.network, borra.nodos)
+names <- gsub("9606.ENSP00000", "", V(hits.network)$name)
+V(hits.network)$name <- names
 
 # Graficamos la red
-png("results/covid_network.png")
-plot(covid_network,
+png("results/hits.network.png")
+plot(hits.network,
      vertex.color = "pink",
-     vertex.size = degree(covid_network)/10,
+     vertex.size = degree(hits.network)/10,
      vertex.label.color = "black",
      vertex.label.family = "Helvetica",
      vertex.label.cex = 0.5,
@@ -51,17 +51,17 @@ plot(covid_network,
 dev.off()
 
 # Se guarda la información en un conjunto de datos para usar linkcomm
-covid_df = igraph::as_data_frame(covid_network, what="edges") 
+covid_df = igraph::as_data_frame(hits.network, what="edges") 
 par(mar=c(1,1,1,1))
 covid_lc <- getLinkCommunities(covid_df, hcmethod = "single")
 par(mar=c(1,1,1,1))
 print(covid_lc)
 
-png("results/covid_lc_summary.png")
+#png("results/covid_lc_summary.png")
 plot(covid_lc, type = "summary")
 dev.off()
 
-png("results/covid_lc_dend.png")
+#png("results/covid_lc_dend.png")
 plot(covid_lc, type = "dend")
 dev.off()
 
@@ -77,6 +77,26 @@ for(i in seq(1:4)){
 }
 dev.off()
 
+#### ENRIQUECIMIENTO FUNCIONAL
+enriquecimientoFuncional <- function(cluster) {
+  # Observamos la representaciÛn de los genes del cluster
+  png(paste("cluster_", cluster, ".png", sep = ""))
+  plot(hits_lc, type = "graph", clusterids = cluster)
+  dev.off()
+  
+  nombres <- getNodesIn(hits_lc, clusterids = cluster, type = "names")
+  datos <- example1_mapped[example1_mapped$STRING_id %in% nombres, ] ## he hecho un ejemplo y sale vacio, mirar cuando estén los cluster
+  
+  # Enriquecimiento con GO
+  enriGo <- string_db$get_enrichment(datos$STRING_id, category = "Process", methodMT = "fdr", iea = TRUE)
+  print(enriGo)
+  write.csv(enriGo[, -c(1,7,8,9)], paste("funcionesbiologicas_GO_cluster", cluster, ".csv", sep = ""))
+  
+  # Enriquecimiento con KEGG
+  enriKEGG <- string_db$get_enrichment(datos$STRING_id, category = "KEGG", methodMT = "fdr", iea = TRUE)
+  print(enriKEGG)
+  write.csv(enriKEGG[, -c(1,7,8,9)], paste("funcionesbiologicas_KEGG_cluster", cluster, ".csv", sep = ""))
+}
 
 #### ROBUSTEZ
 ############### FUNCIONES ###############
