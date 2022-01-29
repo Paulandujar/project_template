@@ -50,21 +50,6 @@ plot(hits.network,
 )
 dev.off()
 
-# Se guarda la informaciÃ³n en un conjunto de datos para usar linkcomm
-covid_df = igraph::as_data_frame(hits.network, what="edges") 
-par(mar=c(1,1,1,1))
-covid_lc <- getLinkCommunities(covid_df, hcmethod = "single")
-par(mar=c(1,1,1,1))
-print(covid_lc)
-
-#png("results/covid_lc_summary.png")
-plot(covid_lc, type = "summary")
-dev.off()
-
-#png("results/covid_lc_dend.png")
-plot(covid_lc, type = "dend")
-dev.off()
-
 
 #### CLUSTERING
 
@@ -77,9 +62,47 @@ for(i in seq(1:4)){
 }
 dev.off()
 
+# Se guarda la información en dataframe para usar linkcomm
+covid_df = igraph::as_data_frame(covid_network, what="edges") 
+
+# Obtenemos las comunidades vinculadas
+covid_lc <- getLinkCommunities(covid_df, hcmethod = "single")
+
+# Guardamos los resultamos
+png("results/covid_lc_summary.png")
+plot(covid_lc, type = "summary")
+dev.off()
+png("results/covid_lc_dend.png")
+plot(covid_lc, type = "dend")
+dev.off()
+
+# Tamaño de los clusters
+png("results/lc_larger_clusters.png")
+par(mfrow = c(2,1))
+pie(covid_lc$clustsizes[covid_lc$clustsizes > 8], radius = 1, main = "Tamaños de las comunidades más grandes")
+barplot(covid_lc$clustsizes[covid_lc$clustsizes > 8], xlab = "Comunidades", ylab = "Tamaño (num genes)")
+par(mfrow = c(1,1))
+dev.off()
+
+# Cambio en el diseño de los gráficos
+png("results/lc_hits.network_layout_fruchterman.reingold.png")
+plot(covid_lc, type = "graph", layout = layout.fruchterman.reingold, ewidth = 2, vlabel.cex = 0.5)
+dev.off()
+png("results/lc_hits.network_layout_spencer.circle.png")
+plot(covid_lc, type = "graph", layout = "spencer.circle", ewidth = 2, vlabel.cex = 0.5)
+dev.off()
+
+# Mostramos solo los nodos que pertenecen a tres o más comunidades
+png("results/hits.network_layout_fruchterman.reingold_shownodesin_3.png")
+plot(covid_lc, type = "graph", shownodesin = 3, node.pies = TRUE, ewidth = 2, vlabel.cex = 0.5)
+dev.off()
+png("results/lc_hits.network_layout_spencer.circle_shownodesin_3.png")
+plot(covid_lc, type = "graph", layout = "spencer.circle", shownodesin = 3, ewidth = 2, vlabel.cex = 0.5)
+dev.off()
+
 #### ENRIQUECIMIENTO FUNCIONAL
 enriquecimientoFuncional <- function(cluster) {
-  # Observamos la representaciÃ³n de los genes del cluster
+  # Observamos la representación de los genes del cluster
   png(paste("cluster_", cluster, ".png", sep = ""))
   plot(hits_lc, type = "graph", clusterids = cluster)
   dev.off()
@@ -97,7 +120,8 @@ enriquecimientoFuncional <- function(cluster) {
   print(enriKEGG)
   write.csv(enriKEGG[, -c(1,7,8,9)], paste("funcionesbiologicas_KEGG_cluster", cluster, ".csv", sep = ""))
 }
-# faltan las funciones con los nÃºmeros de clusters que han salido en clustering
+# faltan las funciones con los números de clusters que han salido en clustering
+
 #### ROBUSTEZ
 ############### FUNCIONES ###############
 robustness.random2 <- function(grafo, measure=degree){
