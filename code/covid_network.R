@@ -222,6 +222,8 @@ robustness.targeted2 <- function(grafo, measure=degree){
   return(sum(diff(x[id])*rollmean(y[id],2)))
 } 
 
+
+###################################
 # plot the graph
 plot_graph <- function(graph){
   V(graph)$label <- NA
@@ -255,5 +257,19 @@ covid_AttackTargeted$attack <- rep("targeted")
 covid_AttackRandom <- sequential.attacks.random(covid_network)
 covid_AttackRandom$attack <- rep("random")
 
+# Juntamos ambos ataques
 attack <- rbind(covid_AttackTargeted,covid_AttackRandom)
 write.csv(attack, file="results/AtaquesRedCovid.csv")
+
+
+pdf(file = 'results/sequential_attacks.pdf', width = 8,height = 6)
+ggplot(attack, aes(x=q, y=S, color=attack)) + geom_point(alpha=.4, size=2) +
+  theme_bw() +
+  theme(plot.background = element_blank(),  panel.grid.minor = element_blank(),plot.title=element_text(size=15)) +
+  geom_line() +
+  ggtitle("Random vs. Targeted sequential attacks") +
+  ylab("S(q)") +
+  xlab("q")
+dev.off()
+
+
