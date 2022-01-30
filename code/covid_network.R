@@ -62,7 +62,7 @@ for(i in seq(1:4)){
 }
 dev.off()
 
-# Se guarda la información en dataframe para usar linkcomm
+# Se guarda la informaciÃ³n en dataframe para usar linkcomm
 covid_df = igraph::as_data_frame(covid_network, what="edges") 
 
 # Obtenemos las comunidades vinculadas
@@ -76,15 +76,26 @@ png("results/covid_lc_dend.png")
 plot(covid_lc, type = "dend")
 dev.off()
 
-# Tamaño de los clusters
+# TamaÃ±o de los clusters
 png("results/lc_larger_clusters.png")
 par(mfrow = c(2,1))
-pie(covid_lc$clustsizes[covid_lc$clustsizes > 8], radius = 1, main = "Tamaños de las comunidades más grandes")
-barplot(covid_lc$clustsizes[covid_lc$clustsizes > 8], xlab = "Comunidades", ylab = "Tamaño (num genes)")
+pie(covid_lc$clustsizes[covid_lc$clustsizes > 8], radius = 1, main = "TamaÃ±os de las comunidades mÃ¡s grandes")
+barplot(covid_lc$clustsizes[covid_lc$clustsizes > 8], xlab = "Comunidades", ylab = "TamaÃ±o (num genes)")
 par(mfrow = c(1,1))
 dev.off()
 
-# Cambio en el diseño de los gráficos
+# Cluster por comunidad/modularidad
+png("results/clusters_modularity.png")
+plot(covid_lc, type = "commsumm", summmary = "mod")
+dev.off()
+cm <- getCommunityConnectedness(covid_lc, conn = "modularity")
+print(head(sort(cm, decreasing = TRUE)))
+
+png("results/6mejores_clusters_modularity.png")
+plot(covid_lc, clusterids = c(17, 11, 18, 14, 5, 15), type = "commsumm", summary = "modularity")
+dev.off()
+
+# Cambio en el diseÃ±o de los grÃ¡ficos
 png("results/lc_hits.network_layout_fruchterman.reingold.png")
 plot(covid_lc, type = "graph", layout = layout.fruchterman.reingold, ewidth = 2, vlabel.cex = 0.5)
 dev.off()
@@ -92,7 +103,7 @@ png("results/lc_hits.network_layout_spencer.circle.png")
 plot(covid_lc, type = "graph", layout = "spencer.circle", ewidth = 2, vlabel.cex = 0.5)
 dev.off()
 
-# Mostramos solo los nodos que pertenecen a tres o más comunidades
+# Mostramos solo los nodos que pertenecen a tres o mÃ¡s comunidades
 png("results/hits.network_layout_fruchterman.reingold_shownodesin_3.png")
 plot(covid_lc, type = "graph", shownodesin = 3, node.pies = TRUE, ewidth = 2, vlabel.cex = 0.5)
 dev.off()
@@ -102,25 +113,32 @@ dev.off()
 
 #### ENRIQUECIMIENTO FUNCIONAL
 enriquecimientoFuncional <- function(cluster) {
-  # Observamos la representación de los genes del cluster
-  png(paste("cluster_", cluster, ".png", sep = ""))
-  plot(hits_lc, type = "graph", clusterids = cluster)
+  # Observamos la representaci?n de los genes del cluster
+  png(paste("results/cluster_", cluster, ".png", sep = ""))
+  plot(covid_lc, type = "graph", clusterids = cluster)
   dev.off()
   
-  nombres <- getNodesIn(hits_lc, clusterids = cluster, type = "names")
-  datos <- data_mapped[data_mapped$STRING_id %in% nombres, ] ## he hecho un ejemplo y sale vacio, mirar cuando estÃ©n los cluster
+  nombres <- getNodesIn(covid_lc, clusterids = cluster, type = "names")
+  datos <- data_mapped[data_mapped$STRING_id %in% nombres, ] 
   
   # Enriquecimiento con GO
   enriGo <- string_db$get_enrichment(datos$STRING_id, category = "Process", methodMT = "fdr", iea = TRUE)
   print(enriGo)
-  write.csv(enriGo[, -c(1,7,8,9)], paste("funcionesbiologicas_GO_cluster", cluster, ".csv", sep = ""))
+  write.csv(enriGo[, -c(1,7,8,9)], paste("results/funcionesbiologicas_GO_cluster", cluster, ".csv", sep = ""))
   
   # Enriquecimiento con KEGG
   enriKEGG <- string_db$get_enrichment(datos$STRING_id, category = "KEGG", methodMT = "fdr", iea = TRUE)
   print(enriKEGG)
-  write.csv(enriKEGG[, -c(1,7,8,9)], paste("funcionesbiologicas_KEGG_cluster", cluster, ".csv", sep = ""))
+  write.csv(enriKEGG[, -c(1,7,8,9)], paste("results/funcionesbiologicas_KEGG_cluster", cluster, ".csv", sep = ""))
 }
-# faltan las funciones con los números de clusters que han salido en clustering
+
+# Enriquecimiento funcional para cluster 11 por ser el de mayor tamaÃ±o
+enriquecimientoFuncional(11)
+
+# Los dos clusters con mayor modularidad son el 17 y el 11, pero como este Ãºltimo es el de mayor tamaÃ±o, vamos a elegir el 18 que es el tercero.
+enriquecimientoFuncional(17)
+
+enriquecimientoFuncional(18)
 
 #### ROBUSTEZ
 ############### FUNCIONES ###############
