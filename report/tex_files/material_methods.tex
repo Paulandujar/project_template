@@ -1,6 +1,6 @@
 \section{Materiales y métodos}
-2.1 Carga de librerías y datos
-Para poder realizar este trabajo, el primer paso a realizar es la carga de librerías necesarias y la carga de datos. Antes de cargar los datos, estos han sido descargados de Uniprot (https://www.uniprot.org/) en formato .csv para poder llevar a cabo el análisis de la red.
+\subsection{Carga de librerías y datos}
+Para poder llevar a cabo este trabajo, el primer paso a realizar es la carga de librerías necesarias y la carga de datos. Antes de cargar los datos, estos han sido descargados de Uniprot (https://www.uniprot.org/) en formato .csv para poder llevar a cabo el análisis de la red.
 Una vez ha sido añadido este fichero al directorio correspondiente (data), se procederá a la carga de librerías.
 Las librerías que han sido utilizadas en este proyecto son las siguientes:
 \begin{itemsize}
@@ -15,15 +15,21 @@ Después de tener las librerías necesarias y saber la funcionalidad de cada una
 
 Seguidamente, se filtrarán las entradas utilizando el paquete "dplyr" en las que la columna Entry.Name contenga en su nombre "HUMAN" ya que estos son los datos que interesan en esta práctica.
 
+\subsection{Mapeo y primera capa de la red}
+A continuación, utilizando la librería STRINGdb, se realiza un mapeo con los datos ya filtrados. Se guardará los hits de string en una imagen png en el directorio de los resultados (results)
+
+Seguidamente, se creará la primera capa de la red y se guardará el resultado de esta primera capa en una imagen png. 
+
+\subsection{Clustering y Linked Communities}
+Una vez se tiene los datos ya mapeados y filtrados, se pasa a realizar el clustering. El clustering consiste en agrupar los ítemns en grupos con características similares y así, determinar patrones.
+Utilizando el paquete STRINGdb, los datos mapeados han sido clasificados en cuatro grupos diferentes según sus características.
+
+Seguidamente, utilizando el paquete linkcommm, se ha realizado la búsqueda de comunidades. Linkcomm proporciona las herramientas necesarias para generar, visualizar y analizar comunidades dentro de un grafo.
+
+Al obtener las comunidades vinculadas, estas serán guardadas en la carpeta de results y, además, se han obtenido los tamaños de los clusters y han sido clasificados por comunidad/modularidad para así obtener los 6 mejores.
 
 
-	
 
 
 
-2.2 Análisis inicial y robustez
-
-2.3 Linked Communities
-
-2.4 Enriquecimiento funcional
 
