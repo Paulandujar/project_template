@@ -91,6 +91,16 @@ dev.off()
 cm <- getCommunityConnectedness(covid_lc, conn = "modularity")
 print(head(sort(cm, decreasing = TRUE)))
 
+# modularity of the communities
+community.connectedness <- getCommunityConnectedness(covid_lc, conn = "modularity") 
+plot(covid_lc, type = "commsumm", summary = "modularity")
+
+# Focus on one linkcomm
+# plot the cluster 17
+png(file="results/cluster17_graph.png")
+plot(covid_lc, type = "graph", clusterids = 17, vlabel=FALSE)
+dev.off()
+
 png("results/6mejores_clusters_modularity.png")
 plot(covid_lc, clusterids = c(17, 11, 18, 14, 5, 15), type = "commsumm", summary = "modularity")
 dev.off()
@@ -110,6 +120,21 @@ dev.off()
 png("results/lc_hits.network_layout_spencer.circle_shownodesin_3.png")
 plot(covid_lc, type = "graph", layout = "spencer.circle", shownodesin = 3, ewidth = 2, vlabel.cex = 0.5)
 dev.off()
+
+# visualize node community membership for the top-connected nodes
+png("results/members.png")
+plot(covid_lc, type = "members")
+dev.off() 
+
+
+# Discover nested communities
+
+getAllNestedComm(covid_lc)
+#Elegimos las comunidades que son independientes de otras, en este caso 18 y 19
+
+png("results/nested_comm.png")
+plot(covid_lc, type = "graph", clusterids = c(18,19))
+dev.off() 
 
 #### ENRIQUECIMIENTO FUNCIONAL
 enriquecimientoFuncional <- function(cluster) {
