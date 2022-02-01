@@ -62,8 +62,8 @@ for(i in seq(1:4)){
 }
 dev.off()
 
-# Se guarda la información en dataframe para usar linkcomm
-covid_df = igraph::as_data_frame(covid_network, what="edges") 
+# Se guarda la informaci�n en dataframe para usar linkcomm
+covid_df = igraph::as_data_frame(hits.network, what="edges") 
 
 # Obtenemos las comunidades vinculadas
 covid_lc <- getLinkCommunities(covid_df, hcmethod = "single")
@@ -76,11 +76,11 @@ png("results/covid_lc_dend.png")
 plot(covid_lc, type = "dend")
 dev.off()
 
-# Tamaño de los clusters
+# Tama�o de los clusters
 png("results/lc_larger_clusters.png")
 par(mfrow = c(2,1))
-pie(covid_lc$clustsizes[covid_lc$clustsizes > 8], radius = 1, main = "Tamaños de las comunidades más grandes")
-barplot(covid_lc$clustsizes[covid_lc$clustsizes > 8], xlab = "Comunidades", ylab = "Tamaño (num genes)")
+pie(covid_lc$clustsizes[covid_lc$clustsizes > 8], radius = 1, main = "Tama�os de las comunidades m�s grandes")
+barplot(covid_lc$clustsizes[covid_lc$clustsizes > 8], xlab = "Comunidades", ylab = "Tama�o (num genes)")
 par(mfrow = c(1,1))
 dev.off()
 
@@ -91,21 +91,20 @@ dev.off()
 cm <- getCommunityConnectedness(covid_lc, conn = "modularity")
 print(head(sort(cm, decreasing = TRUE)))
 
-# modularity of the communities
+# modularidad de las comunidades
 community.connectedness <- getCommunityConnectedness(covid_lc, conn = "modularity") 
 plot(covid_lc, type = "commsumm", summary = "modularity")
 
-# Focus on one linkcomm
-# plot the cluster 17
-png(file="results/cluster17_graph.png")
-plot(covid_lc, type = "graph", clusterids = 17, vlabel=FALSE)
+# Escogemos un cluster al azar (en este caso el 54) y lo graficamos
+png(file="results/cluster78_graph.png")
+plot(covid_lc, type = "graph", clusterids = 54, vlabel=FALSE)
 dev.off()
 
 png("results/6mejores_clusters_modularity.png")
-plot(covid_lc, clusterids = c(17, 11, 18, 14, 5, 15), type = "commsumm", summary = "modularity")
+plot(covid_lc, clusterids = c(78, 22, 54, 41, 21, 77), type = "commsumm", summary = "modularity")
 dev.off()
 
-# Cambio en el diseño de los gráficos
+# Cambio en el dise�o de los gr�ficos
 png("results/lc_hits.network_layout_fruchterman.reingold.png")
 plot(covid_lc, type = "graph", layout = layout.fruchterman.reingold, ewidth = 2, vlabel.cex = 0.5)
 dev.off()
@@ -113,7 +112,7 @@ png("results/lc_hits.network_layout_spencer.circle.png")
 plot(covid_lc, type = "graph", layout = "spencer.circle", ewidth = 2, vlabel.cex = 0.5)
 dev.off()
 
-# Mostramos solo los nodos que pertenecen a tres o más comunidades
+# Mostramos solo los nodos que pertenecen a tres o m�s comunidades
 png("results/hits.network_layout_fruchterman.reingold_shownodesin_3.png")
 plot(covid_lc, type = "graph", shownodesin = 3, node.pies = TRUE, ewidth = 2, vlabel.cex = 0.5)
 dev.off()
@@ -121,19 +120,22 @@ png("results/lc_hits.network_layout_spencer.circle_shownodesin_3.png")
 plot(covid_lc, type = "graph", layout = "spencer.circle", shownodesin = 3, ewidth = 2, vlabel.cex = 0.5)
 dev.off()
 
-# visualize node community membership for the top-connected nodes
+# visualizamos la pertenencia a la comunidad de nodos para los nodos m�s conectados
 png("results/members.png")
 plot(covid_lc, type = "members")
 dev.off() 
 
 
-# Discover nested communities
-
+# obtener comunidades completamente anidadas dentro de una comunidad más grande de nodos
 getAllNestedComm(covid_lc)
-#Elegimos las comunidades que son independientes de otras, en este caso 18 y 19
+
+# comprobar comunidades anidadas
+getAllNestedComm(covid_lc)[1]
+
+#Elegimos las comunidades que son independientes de otras, en este caso 16 y 146
 
 png("results/nested_comm.png")
-plot(covid_lc, type = "graph", clusterids = c(18,19))
+plot(covid_lc, type = "graph", clusterids = c(16,146))
 dev.off() 
 
 #### ENRIQUECIMIENTO FUNCIONAL
@@ -157,13 +159,12 @@ enriquecimientoFuncional <- function(cluster) {
   write.csv(enriKEGG[, -c(1,7,8,9)], paste("results/funcionesbiologicas_KEGG_cluster", cluster, ".csv", sep = ""))
 }
 
-# Enriquecimiento funcional para cluster 11 por ser el de mayor tamaño
-enriquecimientoFuncional(11)
+# Enriquecimiento funcional para cluster 112 por ser el de mayor tama�o
+enriquecimientoFuncional(112)
 
-# Los dos clusters con mayor modularidad son el 17 y el 11, pero como este último es el de mayor tamaño, vamos a elegir el 18 que es el tercero.
-enriquecimientoFuncional(17)
-
-enriquecimientoFuncional(18)
+# Los dos clusters con mayor modularidad son el 78 y el 22
+enriquecimientoFuncional(78)
+enriquecimientoFuncional(22)
 
 #### ROBUSTEZ
 ############### FUNCIONES ###############
@@ -267,7 +268,7 @@ robustness.targeted2 <- function(grafo, measure=degree){
 
 
 ###################################
-# plot the graph
+# graficamos el grafo
 plot_graph <- function(graph){
   V(graph)$label <- NA
   V(graph)$name <- NA
@@ -280,24 +281,24 @@ plot_graph <- function(graph){
   
 }
 
-png(file="results/covid_network_graph.png")
-plot_graph(covid_network)
+png(file="results/hits.network_graph.png")
+plot_graph(hits.network)
 dev.off()
 
 # Calculo de la robustez de nuestra red
-robusezRamdom <- robustness.random2(covid_network)
-robustezDirigida <- robustness.targeted2(covid_network)
+robusezRamdom <- robustness.random2(hits.network)
+robustezDirigida <- robustness.targeted2(hits.network)
 robustez_ambas <- rbind(robusezRamdom,robustezDirigida)
 write.csv(robustez_ambas, file="results/RobustezRedCovid.csv")
 
 
 # Ataques dirigidos
-covid_AttackTargeted <- sequential.attacks.targeted(covid_network)
+covid_AttackTargeted <- sequential.attacks.targeted(hits.network)
 covid_AttackTargeted$attack <- rep("targeted")
 
 # Ataques aleatorios
 
-covid_AttackRandom <- sequential.attacks.random(covid_network)
+covid_AttackRandom <- sequential.attacks.random(hits.network)
 covid_AttackRandom$attack <- rep("random")
 
 # Juntamos ambos ataques
@@ -314,5 +315,3 @@ ggplot(attack, aes(x=q, y=S, color=attack)) + geom_point(alpha=.4, size=2) +
   ylab("S(q)") +
   xlab("q")
 dev.off()
-
-
