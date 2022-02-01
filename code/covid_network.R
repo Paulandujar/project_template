@@ -306,7 +306,7 @@ attack <- rbind(covid_AttackTargeted,covid_AttackRandom)
 write.csv(attack, file="results/AtaquesRedCovid.csv")
 
 
-pdf(file = 'results/sequential_attacks.pdf', width = 8,height = 6)
+png(file = 'results/sequential_attacks.png')
 ggplot(attack, aes(x=q, y=S, color=attack)) + geom_point(alpha=.4, size=2) +
   theme_bw() +
   theme(plot.background = element_blank(),  panel.grid.minor = element_blank(),plot.title=element_text(size=15)) +
