@@ -3,13 +3,13 @@
 Para poder llevar a cabo este trabajo, el primer paso a realizar es la carga de librerías necesarias y la carga de datos. Antes de cargar los datos, estos han sido descargados de Uniprot (https://www.uniprot.org/) en formato .csv para poder llevar a cabo el análisis de la red.
 Una vez ha sido añadido este fichero al directorio correspondiente (data), se procederá a la carga de librerías.
 Las librerías que han sido utilizadas en este proyecto son las siguientes:
-\begin{itemsize}
+\begin{itemize}
 	\item igraph: Esta librería permite realizar análisis de redes, por lo cual, proporciona funciones para manipular gráficos con facilidad.
 	\item dplyr: Esta librería proporciona métodos para poder manejar los ficheros de datos.
 	\item ggplot2: Esta librería es un paquete de visualización de datos.
 	\item zoo: Esta librería está especialmente dirigida a series temporales irregulares de vectores/matrices y factores numéricos. 
 	\item STRINGdb: Este paquete proporciona una interfaz para la base de datos STRING de interacciones proteína-proteína.
-\end{itemsize}
+\end{itemize}
 
 Después de tener las librerías necesarias y saber la funcionalidad de cada una de ellas, se procederá a cargar el archivo en una variable llamada "data" mediante el método "read.csv()"
 
