@@ -3,18 +3,18 @@
 mkdir software software/deps_r
 chmod 755 software/deps_r
 
-#Instalacion de paquetes necesarios para linux
+#Instalacion de paquetes necesarios
 
-sudo apt-get install curl libssl-dev libcurl4-openssl-dev libxml2-dev
+brew install curl libssl-dev libcurl4-openssl-dev libxml2-dev
 
 #Instalacion de librerias R
 
-PKGS_CRAN="'zoo' 'igraph' 'linkcomm' 'data.table' 'BiocManager' 'devtools' 'dplyr' "
+PKGS_CRAN="'zoo' 'igraph' 'linkcomm' 'data.table' 'BiocManager' 'devtools' 'dplyr'"
 PKGS_BM="'STRINGdb'"
 
 for PKG_CRAN in $PKGS_CRAN
     do
-        Rscript -e 'install.packages('$PKG_CRAN', repos="https://cran.rstudio.com/", lib="software/deps_r" )'
+        Rscript -e 'install.packages('$PKG_CRAN', lib="software/deps_r" )'
         Rscript -e 'library('$PKG_CRAN')'
     done
 
