@@ -5,7 +5,7 @@ chmod 755 software/deps_r
 
 #Instalacion de paquetes necesarios
 
-brew install curl libssl-dev libcurl4-openssl-dev libxml2-dev
+brew install libffi
 
 #Instalacion de librerias R
 
