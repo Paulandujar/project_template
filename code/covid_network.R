@@ -72,13 +72,14 @@ plot(clusydegree,pch=20, cex=1.2, col="orange", xlab="Degree", ylab="Clustering 
 dev.off()
 
 
-###### distancia euclidea
+###### distancia
 distance <- distance_table(hits.network)
 denominador <- 1:length(distance$res)
 sumatorio <- sum(distance$res)
 distance$res <- distance$res/s
+cat("La distacnia media es de: ",mean_distance(hits.network))
 png("results/distancia.png")
-plot(distance$res,pch=20, cex=1.2, col="orange", xlab="Distancia", ylab="Pd")
+plot(distance$res,pch=20, cex=1.2, col="blue", xlab="Distancia", ylab="Pd")
 dev.off()
 
 #### ROBUSTEZ
