@@ -50,6 +50,37 @@ plot(hits.network,
 )
 dev.off()
 
+###### GRADO DE DISTRIBUCION
+
+# Obtengo el grado de la red
+deg <- degree(hits.network, mode="all")
+
+#Calculo el grado de distribucion y lo grafico
+deg.dist <- degree_distribution(hits.network,cumulative = F, mode="all")
+png("results/degree_distribution.png")
+plot(deg.dist, pch=20, cex=1.2, col="orange", xlab="Degree", ylab="Frequency")
+dev.off()
+
+
+####coeficiente de agrupamiento
+clusteringCoef<-transitivity(hits.network, type = "local", isolates = c("zero"))
+cc_medio <- transitivity(hits.network, type = "average")
+cat("El Coeficiente de Agrupación medio es de:: ",cc_medio)
+clusydegree <- data.frame(degree = deg, Clust_Coef = clusteringCoef, row.names = NULL)
+png("results/coeficiente_agrupamiento.png")
+plot(clusydegree,pch=20, cex=1.2, col="orange", xlab="Degree", ylab="Clustering Coeffient" )
+dev.off()
+
+
+###### distancia euclidea
+distance <- distance_table(hits.network)
+denominador <- 1:length(distance$res)
+sumatorio <- sum(distance$res)
+distance$res <- distance$res/s
+png("results/distancia.png")
+plot(distance$res,pch=20, cex=1.2, col="orange", xlab="Distancia", ylab="Pd")
+dev.off()
+
 #### ROBUSTEZ
 ############### FUNCIONES ###############
 robustness.random2 <- function(grafo, measure=degree){
