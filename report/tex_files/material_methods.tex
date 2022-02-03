@@ -15,25 +15,50 @@ Después de tener las librerías necesarias y saber la funcionalidad de cada una
 
 Seguidamente, se filtrarán las entradas utilizando el paquete "dplyr" en las que la columna Entry.Name contenga en su nombre "HUMAN" ya que estos son los datos que interesan en esta práctica.
 
+El código que ha sido implementado para la carga de librerías y datos es el siguiente:
+\begin{lstlisting}
+	library(igraph)
+	library(dplyr)
+	library(ggplot2)
+	library(zoo)
+	library(STRINGdb)
+	library(linkcomm)
+	
+	# Cargamos el archivo de datos
+	data <- read.csv("code/data/uniprot1.csv", header=T, sep=";")
+	
+	# Filtramos las entradas y cambiamos el Entry name 
+	data2 <- dplyr::filter(data, grepl("HUMAN",Entry.Name))
+	data2$Entry.Name2 <- sapply(data2$Entry.Name, function(i) gsub("_HUMAN", "", i))
+	contenidos...
+\end{lstlisting}
+
 \subsection{Mapeo y primera capa de la red}
 A continuación, utilizando la librería STRINGdb, se realiza un mapeo con los datos ya filtrados. Se guardará los hits de string en una imagen png en el directorio de los resultados (results)
 
 Seguidamente, se creará la primera capa de la red y se guardará el resultado de esta primera capa en una imagen png. 
 
+\subsection{Grado de Distribución}
+El grado de un vértice en una red es el número de conexiones asociadas a un vértice. Haciendo un recuento en una red del número de nodos por cada grado se tiene el grado de distribución. Este es entendido igualmente como la distribución de probabilidad de un grado en la red.
+
+En esta práctica, se ha obtenido el grado de la red mediante el  método "degree" y después se ha obtenido el grado de distribución mediante el método "degree_distribution".
+
+Seguidamente se ha obtenido el coeficiente de agrupamiento mediante el método "transitivity" y por último, ha sido calculada la distancia euclídea. 
+
+\subsection{Robustez}
+Por último, utilizando los métodos proporcionados en el campus virtual, se ha calculado la robustez de la red de genes. Esta funciona para conocer si la red que se está estudiando es un sistema fuerte y si esta sigue manteniendo sus funciones en la presencia de "ataques" (errores o fallos). Además, ha sido calculada frente a ataques aleatorios como a ataques dirigidos, pero también, han sido combinados ambos ataques.
+
+
 \subsection{Linked Communities}
-Una vez se tiene los datos ya mapeados y filtrados, se pasa a realizar el clustering. El clustering consiste en agrupar los elementos o nodos en grupos con características similares y así, determinar patrones.
+Una vez se tiene los datos ya mapeados y filtrados, se pasa a realizar Linked Communities, para ello, ha sido utilizado el paquete Linkcomm. Este paquete, proporciona las herramientas necesarias para generar, visualizar y analizar comunidades dentro de un grafo.
 
-Utilizando el paquete linkcommm, se ha realizado la búsqueda de comunidades. Linkcomm proporciona las herramientas necesarias para generar, visualizar y analizar comunidades dentro de un grafo.
-
-Al obtener las comunidades vinculadas, estas serán guardadas en la carpeta de results y, además, se han obtenido los tamaños de los clusters y han sido clasificados por comunidad/modularidad para así obtener los 6 mejores.
+Al obtener las comunidades vinculadas, estas serán guardadas en la carpeta de results y, además, se han obtenido los tamaños de los clusters. Seguidamente, se ha obtenido la modularidad de las comunidades y se ha guardado el resultado de un cluster aleatorio.
+Además, se han obtenido las comunidades completamente anidadas dentro de la comunidad más grande de nodos.
 
 \subsection{Enriquecimiento Funcional}
-Al realizar el clustering y el agrupamiento de estas comunidades, se realizará el enriquecimiento funcional. Este enriquecimiento es utilizado para obtener los procesos biológicos de los grupos que han sido formados en el clustering.
+Al realizar Linked Communities, es decir, el agrupamiento de estas comunidades, se realizará el enriquecimiento funcional. Este enriquecimiento es utilizado para obtener los procesos biológicos de los grupos que han sido formados en el clustering.
 En primer lugar, ha sido diseñado el enriquecimiento mediante STRINGdb. Después, se ha realizado el enriquecimiento con GO, es decir, con una ontología génica y también, se ha realizado el enriquecimiento con la ontología KEGG. 
 
 El enriquecimiento ha sido utilizado con los clusters de mayor tamaño y de mayor modularidad.
-
-\subsection{Robustez}
-Por último, utilizando los métodos proporcionados en el campus virtual, se ha calculado la robustez de la red de genes. Esta funciona para conocer si la red que se está estudiando es un sistema fuerte y esta no tiende a tener errores. Además, ha sido calculada frente a ataques aleatorios como a ataques dirigidos, pero también, han sido combinados ambos ataques.
 
  
