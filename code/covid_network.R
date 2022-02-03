@@ -50,122 +50,6 @@ plot(hits.network,
 )
 dev.off()
 
-
-#### CLUSTERING
-
-# Graficamos los clusters utilizando el paquete STRINGdb
-clustersList <- string_db$get_clusters(data_mapped$STRING_id)
-png("results/top4_clusters.png")
-par(mfrow=c(2,2))
-for(i in seq(1:4)){
-  string_db$plot_network(clustersList[[i]])
-}
-dev.off()
-
-# Se guarda la información en dataframe para usar linkcomm
-covid_df = igraph::as_data_frame(hits.network, what="edges") 
-
-# Obtenemos las comunidades vinculadas
-covid_lc <- getLinkCommunities(covid_df, hcmethod = "single")
-
-# Guardamos los resultamos
-png("results/covid_lc_summary.png")
-plot(covid_lc, type = "summary")
-dev.off()
-png("results/covid_lc_dend.png")
-plot(covid_lc, type = "dend")
-dev.off()
-
-# Tamaño de los clusters
-png("results/lc_larger_clusters.png")
-par(mfrow = c(2,1))
-pie(covid_lc$clustsizes[covid_lc$clustsizes > 8], radius = 1, main = "Tamaños de las comunidades más grandes")
-barplot(covid_lc$clustsizes[covid_lc$clustsizes > 8], xlab = "Comunidades", ylab = "Tamaño (num genes)")
-par(mfrow = c(1,1))
-dev.off()
-
-# Cluster por comunidad/modularidad
-png("results/clusters_modularity.png")
-plot(covid_lc, type = "commsumm", summmary = "mod")
-dev.off()
-cm <- getCommunityConnectedness(covid_lc, conn = "modularity")
-print(head(sort(cm, decreasing = TRUE)))
-
-# modularidad de las comunidades
-community.connectedness <- getCommunityConnectedness(covid_lc, conn = "modularity") 
-plot(covid_lc, type = "commsumm", summary = "modularity")
-
-# Escogemos un cluster al azar (en este caso el 54) y lo graficamos
-png(file="results/cluster78_graph.png")
-plot(covid_lc, type = "graph", clusterids = 54, vlabel=FALSE)
-dev.off()
-
-png("results/6mejores_clusters_modularity.png")
-plot(covid_lc, clusterids = c(78, 22, 54, 41, 21, 77), type = "commsumm", summary = "modularity")
-dev.off()
-
-# Cambio en el diseño de los gráficos
-png("results/lc_hits.network_layout_fruchterman.reingold.png")
-plot(covid_lc, type = "graph", layout = layout.fruchterman.reingold, ewidth = 2, vlabel.cex = 0.5)
-dev.off()
-png("results/lc_hits.network_layout_spencer.circle.png")
-plot(covid_lc, type = "graph", layout = "spencer.circle", ewidth = 2, vlabel.cex = 0.5)
-dev.off()
-
-# Mostramos solo los nodos que pertenecen a tres o más comunidades
-png("results/hits.network_layout_fruchterman.reingold_shownodesin_3.png")
-plot(covid_lc, type = "graph", shownodesin = 3, node.pies = TRUE, ewidth = 2, vlabel.cex = 0.5)
-dev.off()
-png("results/lc_hits.network_layout_spencer.circle_shownodesin_3.png")
-plot(covid_lc, type = "graph", layout = "spencer.circle", shownodesin = 3, ewidth = 2, vlabel.cex = 0.5)
-dev.off()
-
-# visualizamos la pertenencia a la comunidad de nodos para los nodos más conectados
-png("results/members.png")
-plot(covid_lc, type = "members")
-dev.off() 
-
-
-# obtener comunidades completamente anidadas dentro de una comunidad mÃ¡s grande de nodos
-getAllNestedComm(covid_lc)
-
-# comprobar comunidades anidadas
-getAllNestedComm(covid_lc)[1]
-
-#Elegimos las comunidades que son independientes de otras, en este caso 16 y 146
-
-png("results/nested_comm.png")
-plot(covid_lc, type = "graph", clusterids = c(16,146))
-dev.off() 
-
-#### ENRIQUECIMIENTO FUNCIONAL
-enriquecimientoFuncional <- function(cluster) {
-  # Observamos la representaci?n de los genes del cluster
-  png(paste("results/cluster_", cluster, ".png", sep = ""))
-  plot(covid_lc, type = "graph", clusterids = cluster)
-  dev.off()
-  
-  nombres <- getNodesIn(covid_lc, clusterids = cluster, type = "names")
-  datos <- data_mapped[data_mapped$STRING_id %in% nombres, ] 
-  
-  # Enriquecimiento con GO
-  enriGo <- string_db$get_enrichment(datos$STRING_id, category = "Process", methodMT = "fdr", iea = TRUE)
-  print(enriGo)
-  write.csv(enriGo[, -c(1,7,8,9)], paste("results/funcionesbiologicas_GO_cluster", cluster, ".csv", sep = ""))
-  
-  # Enriquecimiento con KEGG
-  enriKEGG <- string_db$get_enrichment(datos$STRING_id, category = "KEGG", methodMT = "fdr", iea = TRUE)
-  print(enriKEGG)
-  write.csv(enriKEGG[, -c(1,7,8,9)], paste("results/funcionesbiologicas_KEGG_cluster", cluster, ".csv", sep = ""))
-}
-
-# Enriquecimiento funcional para cluster 112 por ser el de mayor tamaño
-enriquecimientoFuncional(112)
-
-# Los dos clusters con mayor modularidad son el 78 y el 22
-enriquecimientoFuncional(78)
-enriquecimientoFuncional(22)
-
 #### ROBUSTEZ
 ############### FUNCIONES ###############
 robustness.random2 <- function(grafo, measure=degree){
@@ -315,3 +199,110 @@ ggplot(attack, aes(x=q, y=S, color=attack)) + geom_point(alpha=.4, size=2) +
   ylab("S(q)") +
   xlab("q")
 dev.off()
+
+#### LINKED COMMUNITIES
+
+# Se guarda la informaci?n en dataframe para usar linkcomm
+covid_df = igraph::as_data_frame(hits.network, what="edges") 
+
+# Obtenemos las comunidades vinculadas
+covid_lc <- getLinkCommunities(covid_df, hcmethod = "single")
+
+# Guardamos los resultamos
+png("results/covid_lc_summary.png")
+plot(covid_lc, type = "summary")
+dev.off()
+png("results/covid_lc_dend.png")
+plot(covid_lc, type = "dend")
+dev.off()
+
+# Tama?o de los clusters
+png("results/lc_larger_clusters.png")
+par(mfrow = c(2,1))
+pie(covid_lc$clustsizes[covid_lc$clustsizes > 8], radius = 1, main = "Tama?os de las comunidades m?s grandes")
+barplot(covid_lc$clustsizes[covid_lc$clustsizes > 8], xlab = "Comunidades", ylab = "Tama?o (num genes)")
+par(mfrow = c(1,1))
+dev.off()
+
+# Cluster por comunidad/modularidad
+png("results/clusters_modularity.png")
+plot(covid_lc, type = "commsumm", summmary = "mod")
+dev.off()
+cm <- getCommunityConnectedness(covid_lc, conn = "modularity")
+print(head(sort(cm, decreasing = TRUE)))
+
+# modularidad de las comunidades
+community.connectedness <- getCommunityConnectedness(covid_lc, conn = "modularity") 
+plot(covid_lc, type = "commsumm", summary = "modularity")
+
+# Escogemos un cluster al azar (en este caso el 54) y lo graficamos
+png(file="results/cluster54_graph.png")
+plot(covid_lc, type = "graph", clusterids = 54, vlabel=FALSE)
+dev.off()
+
+png("results/6mejores_clusters_modularity.png")
+plot(covid_lc, clusterids = c(78, 22, 54, 41, 21, 77), type = "commsumm", summary = "modularity")
+dev.off()
+
+# Cambio en el dise?o de los gr?ficos
+png("results/lc_hits.network_layout_fruchterman.reingold.png")
+plot(covid_lc, type = "graph", layout = layout.fruchterman.reingold, ewidth = 2, vlabel.cex = 0.5)
+dev.off()
+png("results/lc_hits.network_layout_spencer.circle.png")
+plot(covid_lc, type = "graph", layout = "spencer.circle", ewidth = 2, vlabel.cex = 0.5)
+dev.off()
+
+# Mostramos solo los nodos que pertenecen a 10 o m?s comunidades
+png("results/hits.network_layout_fruchterman.reingold_shownodesin_10.png")
+plot(covid_lc, type = "graph", shownodesin = 10, node.pies = TRUE, ewidth = 2, vlabel.cex = 0.5)
+dev.off()
+png("results/lc_hits.network_layout_spencer.circle_shownodesin_10.png")
+plot(covid_lc, type = "graph", layout = "spencer.circle", shownodesin = 10, ewidth = 2, vlabel.cex = 0.5)
+dev.off()
+
+# visualizamos la pertenencia a la comunidad de nodos para los nodos m?s conectados
+png("results/members.png")
+plot(covid_lc, type = "members")
+dev.off() 
+
+
+# obtener comunidades completamente anidadas dentro de una comunidad mÃ¡s grande de nodos
+getAllNestedComm(covid_lc)
+
+# comprobar comunidades anidadas
+getAllNestedComm(covid_lc)[1]
+
+#Elegimos las comunidades que son independientes de otras, en este caso 16 y 146
+
+png("results/nested_comm.png")
+plot(covid_lc, type = "graph", clusterids = c(16,146))
+dev.off() 
+
+#### ENRIQUECIMIENTO FUNCIONAL
+enriquecimientoFuncional <- function(cluster) {
+  # Observamos la representaci?n de los genes del cluster
+  png(paste("results/cluster_", cluster, ".png", sep = ""))
+  plot(covid_lc, type = "graph", clusterids = cluster)
+  dev.off()
+  
+  #Extraemos los ids
+  datos_ids <- paste0("9606.ENSP00000", linkcomm::getNodesIn(covid_lc, clusterids = cluster, type = "names"))
+  
+  # Enriquecimiento con GO
+  enriGo <- string_db$get_enrichment(datos_ids, category = "Process")
+  print(enriGo)
+  write.csv(enriGo[, -c(1,7,8,9)], paste("results/funcionesbiologicas_GO_cluster", cluster, ".csv", sep = ""))
+  
+  # Enriquecimiento con KEGG
+  enriKEGG <- string_db$get_enrichment(datos_ids, category = "KEGG")
+  print(enriKEGG)
+  write.csv(enriKEGG[, -c(1,7,8,9)], paste("results/funcionesbiologicas_KEGG_cluster", cluster, ".csv", sep = ""))
+}
+
+# Enriquecimiento funcional para cluster 112 por ser el de mayor tamaÃ±o
+enriquecimientoFuncional(112)
+
+# Los dos clusters con mayor modularidad son el 78 y el 22
+enriquecimientoFuncional(78)
+enriquecimientoFuncional(22)
+
