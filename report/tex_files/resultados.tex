@@ -1,1 +1,70 @@
+\section{Resultados}
+
+\subsection{Red de interacciones y robustez}
+
+La siguiente imagen muestra la red de interaciones del ser humano con las proteínas del SARS-CoV. Como podemos ver el SARS-CoV interacciona con 89 proteínas humanas, produciendo un total de 475 interacciones. 
+\begin{figure}
+	\centering
+	
+	\includegraphics[width=70mm,scale=1.2]{figures/string_hits.png}
+	
+	\caption{\textit{Red de interacciones del SARS-CoV con las proteínas humanas}}
+	
+\end{figure}
+
+Tras eliminar los nodos que no están conectados, hemos obtenido la red real de interacciones que podemos ver a continuación. Sin embargo hay demasiadas conexiones como para poder distinguir los nodos. Es por ello que realizaremos los pasos siguientes de clustering, para así poder extraer la información relevante de la red. 
+\begin{figure}
+	\centering
+	
+	\includegraphics[width=70mm,scale=1.2]{figures/hits.network_graph.png}
+	
+	\caption{\textit{Red de interacciones del SARS-CoV con las proteínas humanas tras un proceso de filtrado}}
+	
+\end{figure}
+
+
+Antes de empezar con ese proceso vamos a estudiar diferentes aspectos de nuestra red. En primer lugar si observamos la imagen, vemos que el la distribución de grado sigue la ley de potencias, por lo tanto nuestra red sigue un modelo de free-scale, lo cual era predecible al estar tratando con una red real. 
+
+Podemos  ver una gran cantidad de hubs. 
+\begin{figure}
+	\centering
+	
+	\includegraphics[width=70mm,scale=1.2]{figures/degree_distribution.png}
+	
+	\caption{\textit{Distribución de grado}}
+	
+\end{figure}
+
+El coeficiente medio de agrupamiento es de 0.605, lo cual es bastante alto. Además se puede observar la característica propia de las redes reales la cual afirma que conforme el grado de los nodos aumenta, el coeficiente de agrupamiento disminuye. 
+
+\begin{figure}
+	\centering
+	
+	\includegraphics[width=70mm,scale=1.2]{figures/coeficiente_agrupamiento.png}
+	
+	\caption{\textit{Coeficiente de Agrupamiento}}
+	
+\end{figure}
+
+
+La distancia media entre nodos es de 2.03, una medida muy pequeña que puede significar que los nodos tienen un alto índice de conexiones. Esta medida es la que le da la propiedad de mundo pequeño, es decir, la distancia entre nodos elegidos al azar en una red es muy pequeña. 
+\begin{figure}
+	\centering
+	
+	\includegraphics[width=70mm,scale=1.2]{figures/distancia.png}
+	
+	\caption{\textit{Distancia entre nodos}}
+	
+\end{figure}
+
+Por último vamos a estudiar la robustez de nuestra red. Para poder estudiar cual es la capacidad de nuestra red de mantener sus funciones frente a la presencia de "ataques" y ver cuán de adaptable es, usamos la robustez. Podemos observar que para ataques aleatorios es bastante robusta, mientras que para ataques dirigidos es más débil. Pues a que tenemos una red real, estos resultados resultan obvios, ya que es más fácil destruir una red si atacas a puntos estratégicos como son los hubs, dónde el tamaño de la componente conexa se reduce drásticamente cuando eliminamos una pequeña fracción de los nodos (hubs). 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=70mm,scale=1.2]{figures/sequential_attacks.png}
+	\caption{\textit{Robustez frente a ataques dirigidos y aleatorios}}
+\end{figure}
+
+\subsection{Clustering}
+
 
