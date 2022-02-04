@@ -22,7 +22,7 @@ for PKG_CRAN in $PKGS_CRAN
     
 Rscript -e 'if (!requireNamespace("BiocManager", quietly = TRUE))
 install.packages("BiocManager")
-BiocManager::install(version = "3.12",ask=FALSE)'
+BiocManager::install(version = "3.14",ask=FALSE)'
 
 for PKG_BM in $PKGS_BM
     do
