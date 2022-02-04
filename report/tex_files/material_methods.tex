@@ -33,6 +33,7 @@ El código que ha sido implementado para la carga de librerías y datos es el si
 	data2 <- dplyr::filter(data, grepl("HUMAN",Entry.Name))
 	data2$Entry.Name2 <- sapply(data2$Entry.Name, function(i) gsub("_HUMAN", "", i))
 	contenidos...
+	
 \end{lstlisting}
 
 \subsection{Mapeo y primera capa de la red}
