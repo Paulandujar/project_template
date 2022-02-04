@@ -6,12 +6,12 @@ chmod 755 software/deps_r
 
 #Instalacion de paquetes necesarios
 
-brew install libffi openssl
+# brew install libffi openssl
 # sudo apt-get install curl libssl-dev libcurl4-openssl-dev libxml2-dev
 
 #Instalacion de librerias R
-#"'BiocManager''zoo' 'igraph' 'linkcomm' 'data.table' 'devtools' 'dplyr' 'RCurl'"
-PKGS_CRAN="'BiocManager' 'zoo' 'igraph' 'linkcomm' 'data.table' 'devtools' 'dplyr' 'RCurl'"
+
+PKGS_CRAN="'BiocManager' 'zoo' 'igraph' 'linkcomm' 'data.table' 'devtools' 'dplyr' 'RCarl'"
 PKGS_BM="'STRINGdb'"
 R_INSTALL_DIR="'software/deps_r'"
 
