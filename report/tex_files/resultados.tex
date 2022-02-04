@@ -60,9 +60,9 @@ Por último vamos a estudiar la robustez de nuestra red. Para poder estudiar cua
 \end{figure}
 
 \subsection{Linked Communities}
-En esta sección se explicarán los resultados obtenidos aplicar los métodos de comunidades enlazadas a nuestra red, para los cuales hemos usado el paquete linkcomm.
+En esta sección se explicarán los resultados obtenidos aplicar los métodos de comunidades enlazadas a nuestra red, para los cuales hemos usado el paquete linkcomm. Primero de todo, mencionar que las comunidades de una red son subredes que están altamente relacionados entre sí debido a que sus proteínas poseen algunas características similares. Estas pueden ser funciones biológicas, coeficiente de clustering, o tienen perturbaciones en su secuencia genética que pueden ser enlazadas a una enfermedad común.
 
-Para ello, primero hemos obtenido estas comunidades aplicando un 'single clustering'. Se ha guardado una imagen Figure~\ref{comunidades} del resumen de estas comunidades para un resultado más visual.
+Para la identificación de las comunidades más relevantes en nuestra red, hemos aplicado una función predefinida que devuelve el conjunto de las comunidades identificadas mediante la aplicación de un algoritmo de 'single clustering'. Se ha guardado una imagen Figure~\ref{comunidades} del resumen de estas comunidades para un resultado más visual.
 
 \begin{figure}[h]
 	\centering
@@ -71,9 +71,9 @@ Para ello, primero hemos obtenido estas comunidades aplicando un 'single cluster
 	\label{comunidades}
 \end{figure}
 
-Podemos observar que este método ha definido 165 comunidades diferentes, la mayor de estas tiene 70 nodos lo cual podemos deducir que hay varias comunidades que comparten nodos.
+Podemos observar que este método ha definido 165 comunidades diferentes, la mayor de estas tiene 70 nodos lo cual podemos deducir que hay varias comunidades que comparten nodos en nuestra red.
 
-Para poder analizar un poco las comunidades, las hemos filtrado por tamaño y modularidad. Las gráficas generadas para este propósito son respectivamente Figure~\ref{comTamaño} y Figure~\ref{comModularidad}.
+Para poder analizar las comunidades y obtener las que consideremos más relevantes, han sido filtradas por tamaño y modularidad. Lo cual nos ha facilitado la búsqueda de la comunidad más grande y dos comunidades que tienen mayor modularidad ( y  respectivamente). Las gráficas generadas para este propósito son Figure~\ref{comTamaño} y Figure~\ref{comModularidad}.
 
 \begin{figure}h]
 	\centering
@@ -89,7 +89,7 @@ Para poder analizar un poco las comunidades, las hemos filtrado por tamaño y mo
 	\label{comModularidad}
 \end{figure}
 
-De estas gráficas hemos podido extraer la comunidad 112 siendo esta la más grande y las comunidades 78 y 22 con una mayor modularidad. Estas comunidades serán utilizadas posteriormente para un análisis funcional.
+Hemos podido extraer la comunidad 112 siendo esta la más grande y las comunidades 78 y 22 con una mayor modularidad. A estas comunidades encontradas se les realizará un enriquecimiento funcional para observar las funciones y características comunes que poseen y así poder sacar conclusiones adecuadas.
 
 Para una mejor visualización de los resultados, se ha cambiado el diseño de la gráfica al de Fruchterman Reingold (se puede observar en la Figure~\ref{FRg}), mostrando solo nodos que pertenezcan a 10 o más comunidades.
 
