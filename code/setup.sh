@@ -12,7 +12,7 @@ chmod 755 software/deps_r
 #Instalacion de librerias R
 
 PKGS_CRAN="'BiocManager' 'zoo' 'igraph' 'linkcomm' 'data.table' 'devtools' 'dplyr'"
-PKGS_BM="'STRINGdb'"
+PKGS_BM="'STRINGdb' 'clusterProfiler' 'org.Hs.eg.db' 'enrichplot'"
 R_INSTALL_DIR="'software/deps_r'"
 
 for PKG_CRAN in $PKGS_CRAN
