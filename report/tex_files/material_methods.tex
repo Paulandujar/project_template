@@ -53,15 +53,17 @@ Por último, utilizando los métodos proporcionados en el campus virtual, se ha 
 
 
 \subsection{Linked Communities}
-Una vez se tiene los datos ya mapeados y filtrados, se pasa a realizar Linked Communities, para ello, ha sido utilizado el paquete Linkcomm. Este paquete, proporciona las herramientas necesarias para generar, visualizar y analizar comunidades dentro de un grafo.
+Una vez se tiene los datos ya mapeados y filtrados, se pasa a realizar un agrupamiento por comunidades, para ello, ha sido utilizado el paquete Linkcomm. Este paquete, proporciona las herramientas necesarias para generar, visualizar y analizar comunidades dentro de un grafo.
 
 Al obtener las comunidades vinculadas, estas serán guardadas en la carpeta de results y, además, se han obtenido los tamaños de los clusters. Seguidamente, se ha obtenido la modularidad de las comunidades y se ha guardado el resultado de un cluster aleatorio.
 Además, se han obtenido las comunidades completamente anidadas dentro de la comunidad más grande de nodos.
 
 \subsection{Enriquecimiento Funcional}
-Al realizar Linked Communities, es decir, el agrupamiento de estas comunidades, se realizará el enriquecimiento funcional. Este enriquecimiento es utilizado para obtener los procesos biológicos de los grupos que han sido formados en el clustering.
-En primer lugar, ha sido diseñado el enriquecimiento mediante STRINGdb. Después, se ha realizado el enriquecimiento con GO, es decir, con una ontología génica y también, se ha realizado el enriquecimiento con la ontología KEGG. 
+Una vez encontradas las comunidades más relevantes en un nuestra red, se va a pasar a realizar el enriquecimiento funcional de estas. Este enriquecimiento es utilizado para obtener las principales funciones biológicas involucradas de cada comunidad.
 
-El enriquecimiento ha sido utilizado con los clusters de mayor tamaño y de mayor modularidad.
+Para ello, hemos realizado a cada clúster el análisis funcional mediante las ontologías GO y KEGG y así tener un abanico más amplio de funciones. En primer lugar, 
+hemos utilizado las funciones del paquete STRINGdb para este propósito, con las que hemos obtenidos largas tablas de funciones que hemos recopilado en diversos archivos csv.
+
+Al realizar búsquedas sobre las interpretación de los datos, nos hemos dado cuenta que el paquete clusterProfiler tiene funciones predeterminadas tanto para realizar los enriquecimientos como para aplicar el posterior análisis de los resultados. Por lo que también hemos incluido el análisis funcional con este paquete.
 
  
