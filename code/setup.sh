@@ -11,7 +11,7 @@ chmod 755 software/deps_r
 
 #Instalacion de librerias R
 
-PKGS_CRAN="'BiocManager' 'zoo' 'igraph' 'linkcomm' 'data.table' 'devtools' 'dplyr' 'RCarl'"
+PKGS_CRAN="'BiocManager' 'zoo' 'igraph' 'linkcomm' 'data.table' 'devtools' 'dplyr'"
 PKGS_BM="'STRINGdb'"
 R_INSTALL_DIR="'software/deps_r'"
 
