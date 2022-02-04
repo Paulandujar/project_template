@@ -232,6 +232,7 @@ ggplot(attack, aes(x=q, y=S, color=attack)) + geom_point(alpha=.4, size=2) +
   xlab("q")
 dev.off()
 
+
 #### LINKED COMMUNITIES
 
 # Se guarda la informaci?n en dataframe para usar linkcomm
@@ -267,9 +268,9 @@ print(head(sort(cm, decreasing = TRUE)))
 community.connectedness <- getCommunityConnectedness(covid_lc, conn = "modularity") 
 plot(covid_lc, type = "commsumm", summary = "modularity")
 
-# Escogemos un cluster al azar (en este caso el 54) y lo graficamos
-png(file="results/cluster54_graph.png")
-plot(covid_lc, type = "graph", clusterids = 54, vlabel=FALSE)
+# Escogemos un cluster al azar (en este caso el 78) y lo graficamos
+png(file="results/cluster78_graph.png")
+plot(covid_lc, type = "graph", clusterids = 78, vlabel=FALSE)
 dev.off()
 
 png("results/6mejores_clusters_modularity.png")
@@ -338,3 +339,38 @@ enriquecimientoFuncional(112)
 enriquecimientoFuncional(78)
 enriquecimientoFuncional(22)
 
+# Funciones del cluster 78
+ids78 <- covid_lc$clusters[[78]]
+enrichment_GO78 <- clusterProfiler::enrichGO(gene = ids78,
+                                           OrgDb = org.Hs.eg.db,
+                                           ont  = 'all',
+                                           pAdjustMethod = "BH")
+
+png("results/funcionesGO78.png")
+mutate(enrichment_GO78, qscore = -log(p.adjust, base=10)) %>% 
+  barplot(x="qscore")
+dev.off()
+
+# Funciones del cluster 22
+ids22 <- covid_lc$clusters[[22]]
+enrichment_GO22 <- clusterProfiler::enrichGO(gene = ids22,
+                                           OrgDb = org.Hs.eg.db,
+                                           ont  = 'all',
+                                           pAdjustMethod = "BH")
+
+png("results/funcionesGO22.png")
+mutate(enrichment_GO22, qscore = -log(p.adjust, base=10)) %>% 
+  barplot(x="qscore")
+dev.off()
+
+# Funciones del cluster 112
+ids112 <- covid_lc$clusters[[112]]
+enrichment_GO112 <- clusterProfiler::enrichGO(gene = ids112,
+                                             OrgDb = org.Hs.eg.db,
+                                             ont  = 'all',
+                                             pAdjustMethod = "BH")
+
+png("results/funcionesG112.png")
+mutate(enrichment_GO112, qscore = -log(p.adjust, base=10)) %>% 
+  barplot(x="qscore")
+dev.off()
