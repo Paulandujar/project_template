@@ -5,5 +5,6 @@ then
     Rscript Installation_packages.R
     Rscript covid_network.R
 else
-    sudo bash setup.sh
+    chmod 755 setup.sh
+    ./setup.sh
 fi
