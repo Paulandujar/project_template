@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.4)  4 FEB 2022 13:25
+=======
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.4)  4 FEB 2022 10:47
+>>>>>>> Stashed changes
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -158,6 +162,7 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks30
 \inpenc@posthook=\toks31
 )
+<<<<<<< Updated upstream
 (C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count273
@@ -184,12 +189,33 @@ File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 \c@lstnumber=\count280
 \lst@skipnumbers=\count281
 \lst@framebox=\box59
+=======
+(C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count273
+\lst@gtempboxa=\box56
+\lst@token=\toks32
+\lst@length=\count274
+\lst@currlwidth=\dimen152
+\lst@column=\count275
+\lst@pos=\count276
+\lst@lostspace=\dimen153
+\lst@width=\dimen154
+\lst@newlines=\count277
+\lst@lineno=\count278
+\lst@maxwidth=\dimen155
+(C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count279
+\lst@skipnumbers=\count280
+\lst@framebox=\box57
+>>>>>>> Stashed changes
 )
 (C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
 
+<<<<<<< Updated upstream
 (C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
@@ -221,10 +247,35 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
 LaTeX Font Info:    ... okay on input line 47.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
 LaTeX Font Info:    ... okay on input line 47.
+=======
+(C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-p
+dftex.def
+File: l3backend-pdftex.def 2021-10-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count281
+\l__pdf_internal_box=\box58
+) (report.aux)
+\openout1 = `report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+>>>>>>> Stashed changes
 
 (C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.
 mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
+<<<<<<< Updated upstream
 \scratchcounter=\count283
 \scratchdimen=\dimen156
 \scratchbox=\box61
@@ -236,6 +287,19 @@ mkii
 \MPnumerator=\count287
 \makeMPintoPDFobject=\count288
 \everyMPtoPDFconversion=\toks36
+=======
+\scratchcounter=\count282
+\scratchdimen=\dimen156
+\scratchbox=\box59
+\nofMPsegments=\count283
+\nofMParguments=\count284
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count285
+\MPscratchDim=\dimen157
+\MPnumerator=\count286
+\makeMPintoPDFobject=\count287
+\everyMPtoPDFconversion=\toks34
+>>>>>>> Stashed changes
 )
 (C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
 -base.sty
@@ -249,6 +313,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
+<<<<<<< Updated upstream
 (lastpage)             ! on input line 47.
 \c@lstlisting=\count289
 
@@ -279,6 +344,38 @@ LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.5> not available
                        {ETSI Informática}, \orgname {Universidad de Málaga...
 l.85 		\end{fmbox}
                   
+=======
+(lastpage)             ! on input line 26.
+\c@lstlisting=\count288
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/bx/n' in size <13> not available
+(Font)              size <12> substituted on input line 31.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <24> not available
+(Font)              size <24.88> substituted on input line 34.
+
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 45.
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 45.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <5.5> not available
+(Font)              size <5> substituted on input line 45.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 45.
+
+\address@aff1=\toks35
+! Undefined control sequence.
+<inserted text> \ordiv 
+                       {ETSI Informática}, \orgname {Universidad de Málaga...
+l.73 		\end{fmbox}
+                  % comment this for two column layout
+>>>>>>> Stashed changes
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -297,15 +394,38 @@ LaTeX Font Info:    Trying to load font information for OML+cmr on input line 3
 (C:\Users\usuario\AppData\Local\Programs\MiKTeX\tex/latex/base\omlcmr.fd
 File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
+<<<<<<< Updated upstream
 LaTeX Font Info:    Font shape `OML/cmr/bx/n' in size <8> not available
 (Font)              Font shape `OML/cmm/b/it' tried instead on input line 30.
 
 [2]) (tex_files/resultados.tex
 <figures/string_hits.png, id=21, 481.8pt x 481.8pt>
+=======
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 30.
+
+Overfull \hbox (53.00421pt too wide) in paragraph at lines 30--32
+[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (17.00385pt too wide) in paragraph at lines 33--34
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (167.00537pt too wide) in paragraph at lines 34--35
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[2]) (tex_files/resultados.tex
+<figures/string_hits.png, id=16, 481.8pt x 481.8pt>
+>>>>>>> Stashed changes
 File: figures/string_hits.png Graphic file (type png)
 <use figures/string_hits.png>
 Package pdftex.def Info: figures/string_hits.png  used on input line 9.
 (pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<<<<<<< Updated upstream
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -377,11 +497,63 @@ Package pdftex.def Info: figures/clusters_modularity.png  used on input line 87
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <figures/hits.network_layout_fruchterman.reingold_shownodesin_10.png, id=47, 48
+=======
+<figures/hits.network_graph.png, id=17, 481.8pt x 481.8pt>
+File: figures/hits.network_graph.png Graphic file (type png)
+<use figures/hits.network_graph.png>
+Package pdftex.def Info: figures/hits.network_graph.png  used on input line 19.
+
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+ [3]
+<figures/degree_distribution.png, id=21, 481.8pt x 481.8pt>
+File: figures/degree_distribution.png Graphic file (type png)
+<use figures/degree_distribution.png>
+Package pdftex.def Info: figures/degree_distribution.png  used on input line 32
+.
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<figures/coeficiente_agrupamiento.png, id=22, 481.8pt x 481.8pt>
+File: figures/coeficiente_agrupamiento.png Graphic file (type png)
+<use figures/coeficiente_agrupamiento.png>
+Package pdftex.def Info: figures/coeficiente_agrupamiento.png  used on input li
+ne 43.
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<figures/distancia.png, id=23, 481.8pt x 481.8pt>
+File: figures/distancia.png Graphic file (type png)
+<use figures/distancia.png>
+Package pdftex.def Info: figures/distancia.png  used on input line 54.
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<figures/sequential_attacks.png, id=24, 481.8pt x 481.8pt>
+File: figures/sequential_attacks.png Graphic file (type png)
+<use figures/sequential_attacks.png>
+Package pdftex.def Info: figures/sequential_attacks.png  used on input line 64.
+
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<figures/covid_lc_summary.png, id=25, 481.8pt x 481.8pt>
+File: figures/covid_lc_summary.png Graphic file (type png)
+<use figures/covid_lc_summary.png>
+Package pdftex.def Info: figures/covid_lc_summary.png  used on input line 75.
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+ [4 <./figures/string_hits.png (PNG copy)>]
+<figures/lc_larger_clusters.png, id=29, 481.8pt x 481.8pt>
+File: figures/lc_larger_clusters.png Graphic file (type png)
+<use figures/lc_larger_clusters.png>
+Package pdftex.def Info: figures/lc_larger_clusters.png  used on input line 85.
+
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<figures/clusters_modularity.png, id=30, 481.8pt x 481.8pt>
+File: figures/clusters_modularity.png Graphic file (type png)
+<use figures/clusters_modularity.png>
+Package pdftex.def Info: figures/clusters_modularity.png  used on input line 91
+.
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<figures/hits.network_layout_fruchterman.reingold_shownodesin_10.png, id=31, 48
+>>>>>>> Stashed changes
 1.8pt x 481.8pt>
 File: figures/hits.network_layout_fruchterman.reingold_shownodesin_10.png Graph
 ic file (type png)
 <use figures/hits.network_layout_fruchterman.reingold_shownodesin_10.png>
 Package pdftex.def Info: figures/hits.network_layout_fruchterman.reingold_shown
+<<<<<<< Updated upstream
 odesin_10.png  used on input line 98.
 (pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
 
@@ -405,49 +577,86 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [7 <./figures/covid_lc_summary.png>]
 <figures/cluster112_GO_2.png, id=56, 1127.21124pt x 799.98875pt>
+=======
+odesin_10.png  used on input line 101.
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<figures/nested_comm.png, id=32, 481.8pt x 481.8pt>
+File: figures/nested_comm.png Graphic file (type png)
+<use figures/nested_comm.png>
+Package pdftex.def Info: figures/nested_comm.png  used on input line 109.
+(pdftex.def)             Requested size: 578.1571pt x 578.1571pt.
+<figures/cluster112_GO.png, id=33, 1465.475pt x 766.865pt>
+File: figures/cluster112_GO.png Graphic file (type png)
+<use figures/cluster112_GO.png>
+Package pdftex.def Info: figures/cluster112_GO.png  used on input line 124.
+(pdftex.def)             Requested size: 1758.56125pt x 920.23343pt.
+<figures/cluster112_GO_2.png, id=35, 1127.21124pt x 799.98875pt>
+>>>>>>> Stashed changes
 File: figures/cluster112_GO_2.png Graphic file (type png)
 <use figures/cluster112_GO_2.png>
 Package pdftex.def Info: figures/cluster112_GO_2.png  used on input line 132.
 (pdftex.def)             Requested size: 1352.64674pt x 959.98172pt.
 
+<<<<<<< Updated upstream
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <figures/cluster112_KEGG.png, id=57, 1396.21625pt x 764.8575pt>
+=======
+[5 <./figures/hits.network_graph.png>]
+<figures/cluster112_KEGG.png, id=41, 1396.21625pt x 764.8575pt>
+>>>>>>> Stashed changes
 File: figures/cluster112_KEGG.png Graphic file (type png)
 <use figures/cluster112_KEGG.png>
 Package pdftex.def Info: figures/cluster112_KEGG.png  used on input line 142.
 (pdftex.def)             Requested size: 1675.45116pt x 917.8244pt.
+<<<<<<< Updated upstream
 <figures/cluster78_GO.png, id=58, 677.53125pt x 87.32625pt>
+=======
+<figures/cluster78_GO.png, id=42, 677.53125pt x 87.32625pt>
+>>>>>>> Stashed changes
 File: figures/cluster78_GO.png Graphic file (type png)
 <use figures/cluster78_GO.png>
 Package pdftex.def Info: figures/cluster78_GO.png  used on input line 155.
 (pdftex.def)             Requested size: 813.03343pt x 104.79097pt.
+<<<<<<< Updated upstream
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <figures/cluster78_KEGG.png, id=59, 1062.97125pt x 111.41624pt>
+=======
+<figures/cluster78_KEGG.png, id=43, 1062.97125pt x 111.41624pt>
+>>>>>>> Stashed changes
 File: figures/cluster78_KEGG.png Graphic file (type png)
 <use figures/cluster78_KEGG.png>
 Package pdftex.def Info: figures/cluster78_KEGG.png  used on input line 165.
 (pdftex.def)             Requested size: 1275.55916pt x 133.69882pt.
+<<<<<<< Updated upstream
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <figures/cluster22_GO.png, id=60, 1418.29875pt x 773.89125pt>
+=======
+<figures/cluster22_GO.png, id=44, 1418.29875pt x 773.89125pt>
+>>>>>>> Stashed changes
 File: figures/cluster22_GO.png Graphic file (type png)
 <use figures/cluster22_GO.png>
 Package pdftex.def Info: figures/cluster22_GO.png  used on input line 177.
 (pdftex.def)             Requested size: 1701.95003pt x 928.66486pt.
+<<<<<<< Updated upstream
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [8 <./figures/lc_larger_clusters.png (PNG copy)>]
 <figures/cluster22_KEGG.png, id=65, 1269.74374pt x 152.57pt>
+=======
+<figures/cluster22_KEGG.png, id=45, 1269.74374pt x 152.57pt>
+>>>>>>> Stashed changes
 File: figures/cluster22_KEGG.png Graphic file (type png)
 <use figures/cluster22_KEGG.png>
 Package pdftex.def Info: figures/cluster22_KEGG.png  used on input line 187.
 (pdftex.def)             Requested size: 1523.68489pt x 183.08308pt.
+<<<<<<< Updated upstream
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -461,12 +670,28 @@ hterman.reingold_shownodesin_10.png (PNG copy)> <./figures/nested_comm.png> <./
 figures/cluster112_GO.png>] [11 <./figures/cluster112_GO_2.png> <./figures/clus
 ter78_GO.png> <./figures/cluster78_KEGG.png> <./figures/cluster22_GO.png> <./fi
 gures/cluster22_KEGG.png>] (report.aux)
+=======
+ [6 <./figures/degree_distribution.png>]) (tex_files/discusion.tex) (tex_files/
+conclusiones.tex)
+No file report.bbl.
+
+AED: lastpage setting LastPage
+[7 <./figures/coeficiente_agrupamiento.png>] [8 <./figures/distancia.png> <./fi
+gures/sequential_attacks.png>] [9 <./figures/covid_lc_summary.png> <./figures/l
+c_larger_clusters.png (PNG copy)>] [10 <./figures/clusters_modularity.png> <./f
+igures/hits.network_layout_fruchterman.reingold_shownodesin_10.png (PNG copy)>]
+[11 <./figures/nested_comm.png> <./figures/cluster112_GO.png> <./figures/cluste
+r112_GO_2.png>] [12 <./figures/cluster112_KEGG.png> <./figures/cluster78_GO.png
+> <./figures/cluster78_KEGG.png> <./figures/cluster22_GO.png> <./figures/cluste
+r22_KEGG.png>] (report.aux)
+>>>>>>> Stashed changes
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< Updated upstream
  5820 strings out of 478659
  85337 string characters out of 2844973
  665382 words of memory out of 3000000
@@ -493,6 +718,29 @@ ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb>
 Output written on report.pdf (11 pages, 2259852 bytes).
 PDF statistics:
  142 PDF objects out of 1000 (max. 8388607)
+=======
+ 4988 strings out of 478659
+ 75632 string characters out of 2844973
+ 393421 words of memory out of 3000000
+ 23040 multiletter control sequences out of 15000+600000
+ 410721 words of font info for 52 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 55i,9n,62p,695b,1229s stack positions out of 5000i,500n,10000p,200000b,80000s
+ <C:\Users\usuario\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
+rm1000.pk><C:/Users/usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmmi10.pfb><C:/Users/usuario/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr10.pfb><C:/Users/usuario/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/usuario/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Users/usuario/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/usuari
+o/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:
+/Users/usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cms
+si8.pfb><C:/Users/usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmti10.pfb>
+Output written on report.pdf (12 pages, 2700999 bytes).
+PDF statistics:
+ 122 PDF objects out of 1000 (max. 8388607)
+>>>>>>> Stashed changes
  0 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
