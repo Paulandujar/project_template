@@ -15,11 +15,14 @@ Para poder ejecutar el proyecto, es necesario clonarlo en el equipo. Dírigase a
 git clone https://github.com/Paulandujar/project_template.git 
 ```
 ### Ejecución del proyecto
+> **¡Aviso!** 
+> Antes de proceder a la ejecución, en el caso de que su equipo tenga un sistema operativo iOS, en el setup.sh debe descomentar la línea ***brew install libffi openssl*** y, en el caso de que sea Linux, la línea de instalación ***sudo apt-get install curl libssl-dev libcurl4-openssl-dev libxml2-dev***.
+> 
 Una vez clonado el repositorio, desde la terminal es necesario ejecutar el archivo **launch.sh**, que a su vez ejecutará al **setup.sh** si es necesario.
-> No debería de tener problemas de administrador a la hora de ejecutar dichos archivos. En el caso de que los tuviera, introduzca en la terminal la siguiente línea de comando: ``` chmod 755 setup.sh ```. Esto lo que hace es otorgarle permisos a la persona que lo va a ejecutar. En concreto, con chmod 755 se les está dando permiso de lectura y ejecución a todos los usuarios excepto al propietario que tiene además el permiso de edición.
+> No debería de tener problemas de administrador a la hora de ejecutar dichos archivos. En el caso de que los tuviera, introduzca en la terminal la siguiente línea de comando: ``` chmod 755 <nombreArchivo> ```, siendo este launch.sh o setup.sh. Esto lo que hace es otorgarle permisos a la persona que lo va a ejecutar. En concreto, con chmod 755 se les está dando permiso de lectura y ejecución a todos los usuarios excepto al propietario que tiene además el permiso de edición.
 > 
 Para ello, introduzca el siguiente comando en la terminal: 
-> ¡¡No olvide que debe ejecutarse desde el directorio en el que se encuentra el archivo!!
+> ¡¡No olvide que debe ejecutarse desde el directorio en el que se encuentra el archivo (*carpeta code*)!!
 > 
 ``` 
 ./launch.sh
